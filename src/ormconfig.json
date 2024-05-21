@@ -1,0 +1,24 @@
+{
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "postgres",
+    "password": "postgres",
+    "database": "app_cigler_2023",
+    "synchronize": true,
+    "keepConnectionAlive": true,
+    
+    "cache": true,
+    "entities": [
+        "src/modules/**/*.entity.{ts,js}"
+    ],
+    "migrations": [
+        "src/database/migrations/**/*.{ts,js}"
+    ],
+    "cli": {
+        "entitiesDir": "src/modules",
+        "migrationsDir": "src/database/migrations"
+    }
+    
+
+}
