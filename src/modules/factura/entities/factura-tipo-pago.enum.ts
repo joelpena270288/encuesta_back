@@ -1,4 +1,0 @@
-export enum TipoPagoFactura{
-  TRANSFERENCIA = 'CHEQUE/TRANSFERENCIA',
-  CREDITO = 'CREDITO'
-}
