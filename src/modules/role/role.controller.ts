@@ -18,9 +18,9 @@ export class RoleController {
   }
   @HasRoles(
     RoleEnum.ADMIN,
-    RoleEnum.DIGITADOR,
-    RoleEnum.FACTURADOR,
-    RoleEnum.RH,
+    RoleEnum.HOSTER,
+    RoleEnum.VENDEDOR
+   
   )
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Get()
@@ -29,9 +29,9 @@ export class RoleController {
   }
   @HasRoles(
     RoleEnum.ADMIN,
-    RoleEnum.DIGITADOR,
-    RoleEnum.FACTURADOR,
-    RoleEnum.RH,
+    RoleEnum.HOSTER,
+    RoleEnum.VENDEDOR
+   
   )
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Get(':id')

@@ -12,21 +12,20 @@ import {
     ManyToOne,
     BeforeInsert,
   } from 'typeorm';
-  @Entity('logs') 
-export class Log {
+  @Entity('vehiculos')
+export class Vehiculo {
     @PrimaryGeneratedColumn('uuid')
     id: string;
+    @Column({ type: 'varchar', length: 100, nullable: false, unique: true })
+    chasis: string;
     @Column({ type: 'varchar', length: 100, nullable: false })
-    usuario: string;
+    modelo: string;
     @Column({ type: 'varchar', length: 100, nullable: false })
-    accion: string;
-    @Column({ type: 'varchar', length: 100, nullable: false })
-    entidad: string;
-    @Column({ type: 'varchar', length: 100, nullable: false })
-    mensaje: string;
-    @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
+    color: string;
+    @CreateDateColumn({ type: 'timestamp', name: 'created_at', nullable: true })
     createdAt: Date;
-    @CreateDateColumn({ type: 'timestamp', name: 'updated_at' })
+    @CreateDateColumn({ type: 'timestamp', name: 'updated_at', nullable: true })
     updatedAt: Date;
+  }
 
-}
+

@@ -21,6 +21,7 @@ import { RolesGuard } from '../role/guards/roles.guard';
 import { HasRoles } from '../role/roles.decorator';
 
 import { Status } from '../../EntityStatus/entity.estatus.enum';
+import { Grupo } from '../grupo/entities/grupo.entity';
 
 @Injectable()
 export class UsersService {
@@ -29,6 +30,8 @@ export class UsersService {
     private userRepository: Repository<User>,
     @Inject('ROLE_REPOSITORY')
     private roleRepository: Repository<Role>,
+    @Inject('GRUPO_REPOSITORY')
+    private grupoRepository: Repository<Grupo>,
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<ReadUserDto> {
@@ -50,7 +53,10 @@ export class UsersService {
         rolesfound.push(foundRole);
       }
     }
-
+     const foundGrupo: Grupo = await this.grupoRepository.findOne({where: {id: createUserDto.idGrupo}});
+     if(!foundGrupo){
+      throw new NotFoundException('El grupo introducido no es correcto');
+     }
     const user = new User();
  
     user.username = username.toLowerCase();
@@ -62,6 +68,7 @@ export class UsersService {
 
     user.details = detail;
     user.status = Status.ACTIVO;
+    user.grupo = foundGrupo;
 
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);

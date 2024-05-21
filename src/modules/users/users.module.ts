@@ -6,9 +6,10 @@ import { DatabaseModule } from '../../database/database.module';
 import { RoleModule } from '../role/role.module';
 import { RoleProviders } from '../role/role.providers';
 import { AuthModule } from '../auth/auth.module';
+import {GrupoProviders} from '../grupo/grupo.providers';
 @Module({
   imports: [DatabaseModule],
-  providers: [...UserProviders, UsersService, ...RoleProviders],
+  providers: [...UserProviders, UsersService, ...RoleProviders,...GrupoProviders],
   exports: [UsersService],
   controllers: [UsersController],
 })

@@ -16,6 +16,7 @@ import * as bcrypt from 'bcrypt';
 import { Role } from '../../role/entities/role.entity';
 import { UserDetails } from '../user.details.entity';
 import {Status} from '../../../EntityStatus/entity.estatus.enum';
+import  { Grupo} from '../../grupo/entities/grupo.entity'
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
@@ -38,8 +39,8 @@ export class User {
   roles: Role[];
   @Column({ type: 'varchar', default: Status.ACTIVO, length: 10 })
   status: string;
-
-  
+  @ManyToOne(() => Grupo, (grupo) => grupo.users)
+  grupo: Grupo;
   @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
   createdAt: Date;
   @CreateDateColumn({ type: 'timestamp', name: 'updated_at' })
