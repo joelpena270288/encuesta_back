@@ -6,6 +6,9 @@ import {Status} from '../../EntityStatus/entity.estatus.enum';
 import { User } from '../users/entities/user.entity';
 import { Log} from '../log/entities/log.entity';
 import { Repository } from 'typeorm';
+import { RangoDescuesto } from './entities/rango-descuesto.entity';
+import { RangoEncuesta } from './entities/rango-encuesta.entity';
+import { RangoVenta } from './entities/rango-venta.entity';
 
 @Injectable()
 export class GrupoService {
@@ -22,8 +25,43 @@ export class GrupoService {
     name: createGrupoDto.name.toUpperCase()
 
     }})
+   
+    const rangosDescuentosList: RangoDescuesto[] = new Array<RangoDescuesto>();
+   const rangosEncuestasList: RangoEncuesta[] = new Array<RangoEncuesta>();
+   const rangosventasList: RangoVenta[] = new Array<RangoVenta>();
+  for (let index = 0; index < createGrupoDto.rangosDescuestos.length; index++) {
+    const rangoDescuento: RangoDescuesto = new RangoDescuesto();
+        rangoDescuento.min = createGrupoDto.rangosDescuestos[index].min;
+        rangoDescuento.max = createGrupoDto.rangosDescuestos[index].max;
+        rangoDescuento.valor = createGrupoDto.rangosDescuestos[index].valor;
+        rangosDescuentosList.push(rangoDescuento);
+    
+  }
+  for (let index = 0; index < createGrupoDto.rangosEncuestas.length; index++) {
+    const rangoEncuesta: RangoEncuesta = new RangoEncuesta();
+          rangoEncuesta.min = createGrupoDto.rangosEncuestas[index].min;
+          rangoEncuesta.max = createGrupoDto.rangosEncuestas[index].max;
+          rangoEncuesta.valor = createGrupoDto.rangosEncuestas[index].valor;
+        rangosEncuestasList.push(rangoEncuesta);
+    
+  }
+  for (let index = 0; index < createGrupoDto.rangosVenta.length; index++) {
+    const rangoVenta: RangoVenta = new RangoVenta();
+          rangoVenta.min = createGrupoDto.rangosVenta[index].min;
+          rangoVenta.max = createGrupoDto.rangosVenta[index].max;
+          rangoVenta.valor = createGrupoDto.rangosVenta[index].valor;
+          rangosEncuestasList.push(rangoVenta); 
+    
+  }
+
     if(found){
       found.status = Status.ACTIVO;
+      found.updatedAt = new Date();
+     
+      found.rangoDescueto = rangosDescuentosList;
+      found.rangoEncuesta = rangosEncuestasList;
+      found.rangoVenta = rangosventasList;
+
       await this.grupoRepository.save(found);
       const log: Log = new Log();
       log.usuario = user.username;
@@ -36,12 +74,15 @@ export class GrupoService {
     }else{
       const newGrupo: Grupo = new Grupo();
       newGrupo.name = createGrupoDto.name.toUpperCase();
+      newGrupo.rangoDescueto = rangosDescuentosList;
+      newGrupo.rangoEncuesta = rangosEncuestasList;
+      newGrupo.rangoVenta = rangosventasList;
       await this.grupoRepository.save(newGrupo);
       const log: Log = new Log();
       log.usuario = user.username;
       log.accion = 'Nuevo';
       log.entidad = 'Grupo';
-      log.mensaje = found.name;
+      log.mensaje = newGrupo.name;
       await this.logRepository.save(log);
       return newGrupo;
     }  
@@ -62,9 +103,40 @@ export class GrupoService {
     if(!found){
       throw new NotFoundException('No se encontro el grupo suministrado');
     }
+    const rangosDescuentosList: RangoDescuesto[] = new Array<RangoDescuesto>();
+    const rangosEncuestasList: RangoEncuesta[] = new Array<RangoEncuesta>();
+    const rangosventasList: RangoVenta[] = new Array<RangoVenta>();
+   
+    for (let index = 0; index < updateGrupoDto.rangosDescuestos.length; index++) {
+     const rangoDescuento: RangoDescuesto = new RangoDescuesto();
+         rangoDescuento.min = updateGrupoDto.rangosDescuestos[index].min;
+         rangoDescuento.max = updateGrupoDto.rangosDescuestos[index].max;
+         rangoDescuento.valor = updateGrupoDto.rangosDescuestos[index].valor;
+         rangosDescuentosList.push(rangoDescuento);
+     
+   }
+   for (let index = 0; index < updateGrupoDto.rangosEncuestas.length; index++) {
+     const rangoEncuesta: RangoEncuesta = new RangoEncuesta();
+           rangoEncuesta.min = updateGrupoDto.rangosEncuestas[index].min;
+           rangoEncuesta.max = updateGrupoDto.rangosEncuestas[index].max;
+           rangoEncuesta.valor = updateGrupoDto.rangosEncuestas[index].valor;
+         rangosEncuestasList.push(rangoEncuesta);
+     
+   }
+   for (let index = 0; index < updateGrupoDto.rangosVenta.length; index++) {
+     const rangoVenta: RangoVenta = new RangoVenta();
+           rangoVenta.min = updateGrupoDto.rangosVenta[index].min;
+           rangoVenta.max = updateGrupoDto.rangosVenta[index].max;
+           rangoVenta.valor = updateGrupoDto.rangosVenta[index].valor;
+           rangosEncuestasList.push(rangoVenta); 
+     
+   }
 
     found.name = updateGrupoDto.name.toUpperCase();
     found.updatedAt  = new Date();
+    found.rangoDescueto = rangosDescuentosList;
+    found.rangoEncuesta = rangosEncuestasList;
+    found.rangoVenta = rangosventasList;
 
     await this.grupoRepository.save(found);
     const log: Log = new Log();

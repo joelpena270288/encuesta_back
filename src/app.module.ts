@@ -10,13 +10,18 @@ import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { LogModule } from './modules/log/log.module';
 import { VentaModule } from './modules/venta/venta.module';
-import { VehiculoModule } from './modules/vehiculo/vehiculo.module';
+
 import { VendedorModule } from './modules/vendedor/vendedor.module';
 import { EncuestaModule } from './modules/encuesta/encuesta.module';
-import { PreguntaModule } from './modules/pregunta/pregunta.module';
+
 import { GrupoModule } from './modules/grupo/grupo.module';
 import { CuestionarioModule } from './modules/cuestionario/cuestionario.module';
-import { RespuestaModule } from './modules/respuesta/respuesta.module';
+import { ColorModule } from './modules/color/color.module';
+import { KpiModule } from './modules/kpi/kpi.module';
+
+import { MarcaModule } from './modules/marca/marca.module';
+import { ModeloModule } from './modules/modelo/modelo.module';
+
 
 
 
@@ -35,7 +40,7 @@ import { RespuestaModule } from './modules/respuesta/respuesta.module';
      RoleModule,    
      AuthModule, 
      
-     LogModule, VentaModule, VehiculoModule, VendedorModule, EncuestaModule, PreguntaModule, GrupoModule, CuestionarioModule, RespuestaModule,  
+     LogModule, VentaModule,  VendedorModule, EncuestaModule, GrupoModule, CuestionarioModule, ColorModule, KpiModule, MarcaModule, ModeloModule  
     ]
 })
 export class AppModule {

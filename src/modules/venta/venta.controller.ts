@@ -1,34 +1,52 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { VentaService } from './venta.service';
 import { CreateVentaDto } from './dto/create-venta.dto';
 import { UpdateVentaDto } from './dto/update-venta.dto';
+import { HasRoles } from '../role/roles.decorator';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { RolesGuard } from '../role/guards/roles.guard';
+import { GetUser } from '../auth/user.decorator';
+import { User } from '../users/entities/user.entity';
+import { RoleEnum } from '../role/enums/role.enum';
 
 @Controller('venta')
 export class VentaController {
   constructor(private readonly ventaService: VentaService) {}
-
+  @HasRoles(RoleEnum.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Post()
-  create(@Body() createVentaDto: CreateVentaDto) {
-    return this.ventaService.create(createVentaDto);
+  create(@Body() createVentaDto: CreateVentaDto,@GetUser() user: User) {
+    return this.ventaService.create(createVentaDto,user);
   }
-
+  @HasRoles(RoleEnum.ADMIN,RoleEnum.HOSTER,RoleEnum.VENDEDOR)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Get()
   findAll() {
     return this.ventaService.findAll();
   }
+  @HasRoles(RoleEnum.VENDEDOR)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Get('/ByUser')
+  findAllByUser(@GetUser() user: User) {
+    return this.ventaService.findAllByUser(user);
+  }
 
+  @HasRoles(RoleEnum.ADMIN,RoleEnum.HOSTER,RoleEnum.VENDEDOR)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.ventaService.findOne(+id);
+    return this.ventaService.findOne(id);
   }
-
+  @HasRoles(RoleEnum.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateVentaDto: UpdateVentaDto) {
-    return this.ventaService.update(+id, updateVentaDto);
+  update(@Param('id') id: string, @Body() updateVentaDto: UpdateVentaDto,@GetUser() user: User) {
+    return this.ventaService.update(id, updateVentaDto,user);
   }
-
+  @HasRoles(RoleEnum.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ventaService.remove(+id);
+  remove(@Param('id') id: string,@GetUser() user: User) {
+    return this.ventaService.remove(id,user);
   }
 }

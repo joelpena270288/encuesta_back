@@ -12,7 +12,10 @@ import {
     ManyToOne,
     BeforeInsert,
   } from 'typeorm';
-  import {Status} from '../../../EntityStatus/entity.estatus.enum'
+  import {Status} from '../../../EntityStatus/entity.estatus.enum';
+  import {Vendedor} from '../../vendedor/entities/vendedor.entity';
+import { Vehiculo } from './vehiculo.entity';
+import { Cuestionario} from '../../cuestionario/entities/cuestionario.entity';
   @Entity('ventas')
 export class Venta {
     @PrimaryGeneratedColumn('uuid')
@@ -25,12 +28,24 @@ export class Venta {
     correoCliente: string;
     @Column({ type: 'varchar', length: 100, nullable: false })
     documentoCliente: string;
-    @CreateDateColumn({ type: 'timestamp', name: 'fecha_ingreso', nullable: true })
+    @CreateDateColumn({ type: 'timestamp', name: 'fecha', nullable: true })
     fecha: Date;
     @Column({ type: 'varchar', default: Status.ACTIVO, length: 8 })
     status: string;
     @Column({ type: 'varchar', nullable: true })
     iduser: string;
+    @OneToOne((type) => Vehiculo, {
+      cascade: true,
+      nullable: false,
+      eager: true,
+    })
+    @JoinColumn({ name: 'vehiculo_id' })
+    vehiculo: Vehiculo;
+    @ManyToOne(() => Vendedor, (vendedor) => vendedor.ventas)
+    vendedor: Vendedor;
+    @OneToMany(() => Cuestionario, (cuestionario) => cuestionario.venta,{eager: true})
+  cuestionarios: Cuestionario[];
+  
     @CreateDateColumn({ type: 'timestamp', name: 'created_at', nullable: true })
     createdAt: Date;
     @CreateDateColumn({ type: 'timestamp', name: 'updated_at', nullable: true })

@@ -53,10 +53,7 @@ export class UsersService {
         rolesfound.push(foundRole);
       }
     }
-     const foundGrupo: Grupo = await this.grupoRepository.findOne({where: {id: createUserDto.idGrupo}});
-     if(!foundGrupo){
-      throw new NotFoundException('El grupo introducido no es correcto');
-     }
+    
     const user = new User();
  
     user.username = username.toLowerCase();
@@ -68,7 +65,7 @@ export class UsersService {
 
     user.details = detail;
     user.status = Status.ACTIVO;
-    user.grupo = foundGrupo;
+   
 
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);

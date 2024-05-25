@@ -39,8 +39,7 @@ export class User {
   roles: Role[];
   @Column({ type: 'varchar', default: Status.ACTIVO, length: 10 })
   status: string;
-  @ManyToOne(() => Grupo, (grupo) => grupo.users)
-  grupo: Grupo;
+
   @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
   createdAt: Date;
   @CreateDateColumn({ type: 'timestamp', name: 'updated_at' })

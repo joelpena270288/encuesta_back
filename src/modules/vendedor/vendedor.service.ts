@@ -27,7 +27,7 @@ await this.vendedorRepository.save(found);
   log.usuario = user.username;
   log.accion = 'Activar';
   log.entidad = 'Vendedor';
-  log.mensaje = 'Activo el vendedor: ' +  found.documento + " " +  found.name + " " + found.lastname ;
+  log.mensaje = 'Activo el vendedor: ' +  found.documento + " " +  found.name + " " + found.lastname   ;
   await this.logRepository.save(log);
   return found;
  }else{
@@ -45,9 +45,9 @@ if(!foundGrupo){
   await this.vendedorRepository.save(newVendedor);
   const log: Log = new Log();
   log.usuario = user.username;
-  log.accion = 'Activar';
+  log.accion = 'Creo';
   log.entidad = 'Vendedor';
-  log.mensaje = 'Creo el vendedor: ' +  found.documento + " " +  found.name + " " + found.lastname ;
+  log.mensaje = 'Creo el vendedor: ' +  newVendedor.documento + " " +  newVendedor.name + " " + newVendedor.lastname  + " En el Grupo: " + foundGrupo.name ;
   await this.logRepository.save(log);
   
 return newVendedor;

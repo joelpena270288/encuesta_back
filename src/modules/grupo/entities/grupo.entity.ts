@@ -14,7 +14,11 @@ import {
   } from 'typeorm';
   import { User } from '../../users/entities/user.entity';
   import { Vendedor} from '../../vendedor/entities/vendedor.entity';
-  import { Status} from '../../../EntityStatus/entity.estatus.enum'
+  import { Status} from '../../../EntityStatus/entity.estatus.enum';
+  import {Kpi} from '../../kpi/entities/kpi.entity';
+  import {RangoDescuesto} from './rango-descuesto.entity';
+  import {RangoEncuesta} from './rango-encuesta.entity';
+  import {RangoVenta} from './rango-venta.entity';
   @Entity('grupos')
 export class Grupo {
     @PrimaryGeneratedColumn('uuid')
@@ -27,8 +31,19 @@ export class Grupo {
     createdAt: Date;
     @CreateDateColumn({ type: 'timestamp', name: 'updated_at', nullable: true })
     updatedAt: Date;
-    @OneToMany(() => User, (user) => user.grupo)
-    users: User[];
-    @OneToMany(() => User, (user) => user.grupo)
+   
+    @OneToMany(() => Vendedor, (vendedor) => vendedor.grupo)
     vendedores: Vendedor[];
+    @ManyToOne(() => Kpi, (kpi) => kpi.grupos,{eager:true})
+    kpi: Kpi;
+    @ManyToMany(() => RangoDescuesto)
+    @JoinTable()
+    rangoDescueto: RangoDescuesto[];
+    @ManyToMany(() => RangoEncuesta)
+    @JoinTable()
+    rangoEncuesta: RangoEncuesta[];
+    @ManyToMany(() => RangoVenta)
+    @JoinTable()
+    rangoVenta: RangoVenta[];
+
 }

@@ -2,6 +2,7 @@ import { Type,Exclude, Expose } from 'class-transformer';
 import { IsNumber, IsEmail, IsString, IsDate } from 'class-validator';
 import { ReadRolDto } from '../../role/dto/read-role-dto';
 import { UserDetails } from '../user.details.entity';
+import {Grupo} from '../../grupo/entities/grupo.entity';
 
 export class ReadUserDto {
  
@@ -29,5 +30,8 @@ export class ReadUserDto {
   @Expose() 
   @IsDate()
   updatedAt: Date;
+  @Expose()
+  @Type((type) => Grupo)
+  grupo: Grupo;
  
 }

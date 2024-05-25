@@ -13,7 +13,8 @@ import {
     BeforeInsert,
   } from 'typeorm';
   import { Grupo} from '../../grupo/entities/grupo.entity';
-  import { Status} from '../../../EntityStatus/entity.estatus.enum'
+  import { Status} from '../../../EntityStatus/entity.estatus.enum';
+  import {Venta} from '../../venta/entities/venta.entity';
 
   @Entity('vendedores')
 export class Vendedor {
@@ -34,6 +35,8 @@ export class Vendedor {
     status: string;
     @ManyToOne(() => Grupo, (grupo) => grupo.vendedores,{eager:true})
     grupo: Grupo;
+    @OneToMany(() => Venta, (venta) => venta.vendedor,{eager: true})
+    ventas: Venta[];
     @CreateDateColumn({ type: 'timestamp', name: 'created_at', nullable: true })
     createdAt: Date;
     @CreateDateColumn({ type: 'timestamp', name: 'updated_at', nullable: true })
