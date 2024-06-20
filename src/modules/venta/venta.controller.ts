@@ -24,7 +24,7 @@ export class VentaController {
   findAll() {
     return this.ventaService.findAll();
   }
-  @HasRoles(RoleEnum.VENDEDOR)
+  @HasRoles(RoleEnum.VENDEDOR,RoleEnum.HOSTER)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Get('/ByUser')
   findAllByUser(@GetUser() user: User) {

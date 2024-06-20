@@ -58,7 +58,14 @@ async  create(createModeloDto: CreateModeloDto,user: User): Promise<Modelo> {
   }
 
  async findAll():Promise<Modelo[]> {
-    return await this.modeloRepository.find({where:{status: Status.ACTIVO}});
+    return await this.modeloRepository
+	 .createQueryBuilder('modelo')
+	 .orderBy('modelo.createdAt',"DESC" )
+	 .innerJoinAndSelect('modelo.marca', 'marca')
+	  .where('modelo.status = :estado', {
+        estado: Status.ACTIVO,
+      })
+	   .getMany();
   }
 
  async findOne(id: string): Promise<Modelo> {

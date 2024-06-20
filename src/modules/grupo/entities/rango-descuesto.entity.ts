@@ -23,7 +23,7 @@ export class RangoDescuesto {
     min: number;
     @Column({ type: 'integer', default: 0, nullable: false})
     max: number;
-    @Column({ type: 'integer', default: 0, nullable: false})
+    @Column({type: 'decimal', nullable: false,default: 0, precision: 10, scale: 2})
     valor: number;    
     @Column({ type: 'varchar', default: Status.ACTIVO, length: 10 })
     status: string;

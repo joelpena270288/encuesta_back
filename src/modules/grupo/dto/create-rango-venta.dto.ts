@@ -6,6 +6,6 @@ export class CreateRangoVentaDto {
     min: number;
     @IsInt()
     max: number;
-    @IsInt()
+    @IsNotEmpty()
     valor: number;
 }

@@ -24,6 +24,12 @@ export class EncuestaController {
   findAll() {
     return this.encuestaService.findAll();
   }
+   @HasRoles(RoleEnum.ADMIN,RoleEnum.HOSTER,RoleEnum.VENDEDOR)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Get('/activas')
+  findAllActivas() {
+    return this.encuestaService.findAllActivas();
+  }
   @HasRoles(RoleEnum.ADMIN,RoleEnum.HOSTER,RoleEnum.VENDEDOR)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Get(':id')

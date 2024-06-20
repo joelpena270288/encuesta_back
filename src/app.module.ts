@@ -21,6 +21,8 @@ import { KpiModule } from './modules/kpi/kpi.module';
 
 import { MarcaModule } from './modules/marca/marca.module';
 import { ModeloModule } from './modules/modelo/modelo.module';
+import { CompetenciaModule } from './modules/competencia/competencia.module';
+
 
 
 
@@ -40,7 +42,17 @@ import { ModeloModule } from './modules/modelo/modelo.module';
      RoleModule,    
      AuthModule, 
      
-     LogModule, VentaModule,  VendedorModule, EncuestaModule, GrupoModule, CuestionarioModule, ColorModule, KpiModule, MarcaModule, ModeloModule  
+     LogModule,
+    VentaModule, 
+    VendedorModule,
+    EncuestaModule,
+    GrupoModule, 
+    CuestionarioModule, 
+    ColorModule, 
+    KpiModule, 
+    MarcaModule, 
+    ModeloModule, 
+    CompetenciaModule  
     ]
 })
 export class AppModule {

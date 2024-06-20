@@ -35,7 +35,7 @@ export class Vendedor {
     status: string;
     @ManyToOne(() => Grupo, (grupo) => grupo.vendedores,{eager:true})
     grupo: Grupo;
-    @OneToMany(() => Venta, (venta) => venta.vendedor,{eager: true})
+    @OneToMany(() => Venta, (venta) => venta.vendedor)
     ventas: Venta[];
     @CreateDateColumn({ type: 'timestamp', name: 'created_at', nullable: true })
     createdAt: Date;

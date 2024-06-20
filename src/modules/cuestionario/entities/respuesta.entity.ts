@@ -19,8 +19,8 @@ export class Respuesta {
     id: string;
     @Column({ type: 'varchar', length: 100, nullable: false })
    idpregunta: string;
-   @Column({ type: 'varchar', length: 100, nullable: false })
-   respuesta: string;
+   @Column({ type: 'boolean', nullable: false, default: false })
+   respuesta: boolean;
    @ManyToMany(() => Cuestionario, (cuestionario) => cuestionario.respuestas)
   cuestionarios: Cuestionario[];
 }

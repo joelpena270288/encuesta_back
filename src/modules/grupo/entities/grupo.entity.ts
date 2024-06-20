@@ -25,6 +25,8 @@ export class Grupo {
     id: string;
     @Column({ type: 'varchar', length: 100, nullable: false })
     name: string; 
+    @Column({ type: 'varchar', length: 100, nullable: false, default: 'red' })
+    color: string; 
     @Column({ type: 'varchar', default: Status.ACTIVO, length: 10 })
     status: string;
     @CreateDateColumn({ type: 'timestamp', name: 'created_at', nullable: true })
@@ -36,13 +38,25 @@ export class Grupo {
     vendedores: Vendedor[];
     @ManyToOne(() => Kpi, (kpi) => kpi.grupos,{eager:true})
     kpi: Kpi;
-    @ManyToMany(() => RangoDescuesto)
+    @ManyToMany(() => RangoDescuesto, {
+      cascade: true,    
+      eager: true,
+     
+    } )
     @JoinTable()
     rangoDescueto: RangoDescuesto[];
-    @ManyToMany(() => RangoEncuesta)
+    @ManyToMany(() => RangoEncuesta, {
+      cascade: true,    
+      eager: true,
+    
+    })
     @JoinTable()
     rangoEncuesta: RangoEncuesta[];
-    @ManyToMany(() => RangoVenta)
+    @ManyToMany(() => RangoVenta, {
+      cascade: true,    
+      eager: true,
+    
+    })
     @JoinTable()
     rangoVenta: RangoVenta[];
 

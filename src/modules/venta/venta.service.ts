@@ -8,6 +8,8 @@ import { Vehiculo } from './entities/vehiculo.entity';
 import { User } from '../users/entities/user.entity';
 import { Log } from '../log/entities/log.entity';
 import { Vendedor } from '../vendedor/entities/vendedor.entity';
+import { Encuesta } from '../encuesta/entities/encuesta.entity';
+import { VentaEncuesta } from './dto/venta-encuesta.dto';
 @Injectable()
 export class VentaService {
   constructor(
@@ -16,7 +18,9 @@ export class VentaService {
     @Inject('LOG_REPOSITORY')
     private logRepository: Repository<Log>,
     @Inject('VENDEDOR_REPOSITORY')
-    private vendedorRepository: Repository<Vendedor>
+    private vendedorRepository: Repository<Vendedor>,
+	 @Inject('ENCUESTA_REPOSITORY')
+    private encuestaRepository: Repository<Encuesta>
   
   ) {}
  async create(createVentaDto: CreateVentaDto,user: User):Promise<Venta> {
@@ -35,15 +39,22 @@ if(!vendedor){
 }
   const venta: Venta = new Venta();
   const vehiculo: Vehiculo = new Vehiculo();
-  vehiculo.chasis = createVentaDto.chasis;
-  vehiculo.color = createVentaDto.color;
-  vehiculo.modelo = createVentaDto.modelo;
-  venta.correoCliente = createVentaDto.correoCliente;
+ 
+ vehiculo.chasis = createVentaDto.chasis;
+ 
+ vehiculo.color = createVentaDto.color;
+ vehiculo.marca = createVentaDto.marca;
+ vehiculo.modelo = createVentaDto.modelo;
+  
+
+ venta.correoCliente = createVentaDto.correoCliente;
   venta.documentoCliente = createVentaDto.documentoCliente;
   venta.fecha = createVentaDto.fecha;
   venta.iduser = createVentaDto.iduser;
   venta.nombreCliente = createVentaDto.nombreCliente;
   venta.telefonoCliente = createVentaDto.telefonoCliente;
+  venta.precioVenta = createVentaDto.precioVenta;
+  venta.precioFinVenta = createVentaDto.precioFinVenta;
   venta.vehiculo = vehiculo;
   venta.vendedor = vendedor;
   await this.ventaRepository.save(venta);
@@ -59,8 +70,65 @@ if(!vendedor){
 async  findAll(): Promise<Venta[]> {
     return await this.ventaRepository.find({where: {status: Status.ACTIVO}});
   }
-  async  findAllByUser(user: User): Promise<Venta[]> {
-    return await this.ventaRepository.find({where: {status: Status.ACTIVO, iduser: user.id}});
+  
+  
+  
+  async  findAllByUser(user: User): Promise<VentaEncuesta[]> {    
+  
+  const totalEcuestas: Encuesta[] = await this.encuestaRepository.find({where: {status: Status.ACTIVO }});
+  const VentasList : VentaEncuesta[] = []; 
+	const ventas: Venta[] =  await this.ventaRepository
+	  .createQueryBuilder('venta')
+	   .orderBy('venta.fecha', 'ASC')
+	  .innerJoinAndSelect('venta.vehiculo','vehiculo')
+	  .leftJoinAndSelect('venta.cuestionarios','cuestionarios')
+	   .where('venta.iduser = :iduser', {
+        iduser: user.id
+      })
+	  .andWhere('venta.status = :estado',{ estado: Status.ACTIVO })
+	
+	   .getMany();
+	   
+	  for(let i = 0; i < ventas.length; i ++){
+		 const completadas: Encuesta[] = [];
+		  if(totalEcuestas.length!= ventas[i].cuestionarios.length){
+		  
+		  for(let j = 0; j< ventas[i].cuestionarios.length; j++){
+			var found =  totalEcuestas.find(x=> x.id == ventas[i].cuestionarios[j].encuesta.id );
+			if(found){
+			completadas.push(found);	
+				
+				
+			}
+			  
+		 
+		   }
+		  
+		  
+		const result: VentaEncuesta = new VentaEncuesta();
+		 result.id =  ventas[i].id;
+		 result.nombreCliente = ventas[i].nombreCliente;  
+         result.telefonoCliente = ventas[i].telefonoCliente;   
+         result.correoCliente =  ventas[i].correoCliente;  
+         result.documentoCliente = ventas[i].documentoCliente; 
+         result.fecha = ventas[i].fecha;
+         result.chasis = ventas[i].vehiculo.chasis;
+		 result.marca = ventas[i].vehiculo.marca;
+         result.modelo = ventas[i].vehiculo.modelo;
+		 result.color = ventas[i].vehiculo.color;
+         result.encuestasCompletadas = [...completadas];
+VentasList.push(result);	
+		  
+		  }
+		  
+	  }
+	  
+	
+	return VentasList;
+	
+	
+  
+  
   }
 
  async findOne(id: string): Promise<Venta> {
@@ -97,6 +165,8 @@ async  findAll(): Promise<Venta[]> {
     found.vehiculo.chasis = updateVentaDto.chasis;
     found.vehiculo.modelo = updateVentaDto.modelo;
     found.vehiculo.color = updateVentaDto.color;
+	found.precioVenta = updateVentaDto.precioVenta;
+    found.precioFinVenta = updateVentaDto.precioFinVenta;
     found.vendedor = vendedor;
     found.updatedAt = new Date();
     return await this.ventaRepository.save(found);

@@ -6,6 +6,6 @@ export class CreateRangoEncuestaDto {
     min: number;
     @IsInt()
     max: number;
-    @IsInt()
+    @IsNotEmpty()
     valor: number;
 }

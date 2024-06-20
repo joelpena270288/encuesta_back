@@ -24,10 +24,14 @@ export class Venta {
     nombreCliente: string;
     @Column({ type: 'varchar', length: 100, nullable: false })
     telefonoCliente: string;
-    @Column({ type: 'varchar', length: 100, nullable: false })
+    @Column({ type: 'varchar', length: 100, nullable: true })
     correoCliente: string;
     @Column({ type: 'varchar', length: 100, nullable: false })
     documentoCliente: string;
+	@Column({ type: 'decimal', nullable: false, precision: 10, scale: 2 })
+    precioVenta: number;
+	@Column({ type: 'decimal', nullable: false, precision: 10, scale: 2 })
+    precioFinVenta: number;
     @CreateDateColumn({ type: 'timestamp', name: 'fecha', nullable: true })
     fecha: Date;
     @Column({ type: 'varchar', default: Status.ACTIVO, length: 8 })
@@ -41,7 +45,7 @@ export class Venta {
     })
     @JoinColumn({ name: 'vehiculo_id' })
     vehiculo: Vehiculo;
-    @ManyToOne(() => Vendedor, (vendedor) => vendedor.ventas)
+    @ManyToOne(() => Vendedor, (vendedor) => vendedor.ventas,{eager: true})
     vendedor: Vendedor;
     @OneToMany(() => Cuestionario, (cuestionario) => cuestionario.venta,{eager: true})
   cuestionarios: Cuestionario[];

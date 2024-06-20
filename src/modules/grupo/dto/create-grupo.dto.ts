@@ -10,6 +10,10 @@ export class CreateGrupoDto {
     @IsNotEmpty() 
     rangosEncuestas: CreateRangoEncuestaDto[];
     @IsNotEmpty() 
-    rangosVenta: CreateRangoVentaDto[];
+    rangosVentas: CreateRangoVentaDto[];
+	 @IsNotEmpty()
+	 idKpi: string;
+     color: string;
+	
    
 }

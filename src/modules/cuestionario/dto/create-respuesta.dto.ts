@@ -3,7 +3,7 @@ export class CreateRespuestaDto {
     @IsNotEmpty()  
     idpregunta: string;
     @IsNotEmpty()
-    respuesta: string;
+    respuesta: boolean;
 
 
 }

@@ -60,6 +60,10 @@ return encuesta;
     return await this.encuestaRepository.find({where: {status: Not(Status.INACTIVO)}});
   
   }
+  async findAllActivas(): Promise<Encuesta[]> {
+    return await this.encuestaRepository.find({where: {status: Status.ACTIVO}});
+  
+  }
 
  async findOne(id: string): Promise<Encuesta> {
   const found: Encuesta = await this.encuestaRepository.findOne({where: {id: id}});

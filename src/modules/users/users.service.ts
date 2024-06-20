@@ -19,6 +19,7 @@ import { plainToClass } from 'class-transformer';
 import { ReadUserDto } from './dto/read-user.dto';
 import { RolesGuard } from '../role/guards/roles.guard';
 import { HasRoles } from '../role/roles.decorator';
+import {RoleEnum} from  '../role/enums/role.enum';
 
 import { Status } from '../../EntityStatus/entity.estatus.enum';
 import { Grupo } from '../grupo/entities/grupo.entity';
@@ -133,5 +134,15 @@ export class UsersService {
     userExists.status = Status.INACTIVO;
     await this.userRepository.save(userExists);
     return plainToClass(ReadUserDto, userExists);
+  }
+  async findAllHoster(): Promise<ReadUserDto[]>{
+	 const users: User[] = await this.userRepository
+	  .createQueryBuilder('user')
+	  .innerJoinAndSelect('user.roles','rol')
+	  .where('rol.name = :nameRol',{
+		nameRol: RoleEnum.HOSTER  
+	  })  .getMany();
+	    return users.map((user: User) => plainToClass(ReadUserDto, user));
+	  
   }
 }

@@ -36,6 +36,12 @@ export class UsersController {
   findAll() {
     return this.usersService.findAll();
   }
+   @HasRoles(RoleEnum.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Get('/hosters')
+  findAllHoster() {
+    return this.usersService.findAllHoster();
+  }
 
   @HasRoles(RoleEnum.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)

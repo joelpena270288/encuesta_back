@@ -1,4 +1,4 @@
-import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, NotFoundException, ParseBoolPipe } from '@nestjs/common';
 import { CreateCuestionarioDto } from './dto/create-cuestionario.dto';
 import { UpdateCuestionarioDto } from './dto/update-cuestionario.dto';
 import { Cuestionario } from './entities/cuestionario.entity';
@@ -35,29 +35,30 @@ export class CuestionarioService {
   if(!encuesta){
     throw new NotFoundException("La encuesta introducida no es correcta");
   }
-  if(isNotEmpty(venta.cuestionarios.filter(x=>{
+  const preguntasList: Pregunta[] = encuesta.preguntas;
+  const foundEncuestasrealizadas = venta.cuestionarios.find(x=>
     x.encuesta.id = encuesta.id
-  })) ){
+  );
+  if(foundEncuestasrealizadas !=null){
     throw new BadRequestException("La venta ya se le hizo la encuesta");
   }
 const cuestionario: Cuestionario = new Cuestionario();
 let valor = 0;
 for (let index = 0; index < createCuestionarioDto.respuestas.length; index++) {
   const respuesta: Respuesta = new Respuesta();
+
    respuesta.idpregunta =  createCuestionarioDto.respuestas[index].idpregunta;
    respuesta.respuesta = createCuestionarioDto.respuestas[index].respuesta;
  respuestaList.push(respuesta);
- const foundPregunta: Pregunta = encuesta.preguntas.filter(x=>{x.id = createCuestionarioDto.respuestas[index].idpregunta})[0];
- if(foundPregunta){
+ 
 
-  if(foundPregunta.text === createCuestionarioDto.respuestas[index].respuesta ){
-    valor+= foundPregunta.valor;
-  }
- }
+ preguntasList.forEach((item)=>{
+if(item.id === respuesta.idpregunta && item.respuesta === respuesta.respuesta){
+          valor += item.valor;
+}
 
-
-  const element = createCuestionarioDto.respuestas[index];
-  
+  });
+ 
 }
 cuestionario.encuesta = encuesta;
 cuestionario.venta = venta;

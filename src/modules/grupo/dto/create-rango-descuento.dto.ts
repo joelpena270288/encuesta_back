@@ -6,6 +6,6 @@ export class CreateRangoDescuentoDto {
     min: number;
     @IsInt()
     max: number;
-    @IsInt()
+    @IsNotEmpty()
     valor: number;
 }

@@ -20,12 +20,12 @@ export class Kpi {
     id: string;
     @Column({ type: 'varchar', length: 100, nullable: false })
     name: string; 
-    @Column({ type: 'integer', nullable: false,default:0 })
-    indiceEncuesta: string; 
-    @Column({ type: 'integer', nullable: false,default:0 })
-    indiceVenta: string; 
-    @Column({ type: 'integer',  nullable: false,default:0 })
-    indiceDescuesto: string; 
+    @Column({type: 'decimal', nullable: false,default: 0, precision: 10, scale: 2})
+    indiceEncuesta: number; 
+     @Column({type: 'decimal', nullable: false,default: 0, precision: 10, scale: 2})
+    indiceVenta: number; 
+    @Column({type: 'decimal', nullable: false,default: 0, precision: 10, scale: 2})
+    indiceDescuesto: number; 
     @Column({ type: 'varchar', default: Status.ACTIVO, length: 10 })
     status: string;
     @OneToMany(() => Grupo, (grupo) => grupo.kpi)

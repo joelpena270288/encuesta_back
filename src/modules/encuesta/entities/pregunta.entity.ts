@@ -24,7 +24,7 @@ export class Pregunta {
     @Column({ type: 'boolean', nullable: false, default: true })
    respuesta: boolean;
    @ManyToMany(() => Encuesta, (encuesta) => encuesta.preguntas)
-  encuestas: Encuesta[];
+   encuestas: Encuesta[];
    @CreateDateColumn({ type: 'timestamp', name: 'created_at', nullable: true })
    createdAt: Date;
    @CreateDateColumn({ type: 'timestamp', name: 'updated_at', nullable: true })
