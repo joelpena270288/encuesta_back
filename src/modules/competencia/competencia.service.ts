@@ -10,7 +10,7 @@ import { RangoVenta } from '../grupo/entities/rango-venta.entity';
 import { Kpi } from '../kpi/entities/kpi.entity';
 import { GenerarCompetencia } from './dto/generar-competencia.dto';
 import { ReadVendedorCompetencia } from './dto/read-vendedor-competencia.dto';
-
+import * as moment from 'moment';
 @Injectable()
 export class CompetenciaService {
   constructor(

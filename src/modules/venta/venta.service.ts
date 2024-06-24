@@ -10,6 +10,7 @@ import { Log } from '../log/entities/log.entity';
 import { Vendedor } from '../vendedor/entities/vendedor.entity';
 import { Encuesta } from '../encuesta/entities/encuesta.entity';
 import { VentaEncuesta } from './dto/venta-encuesta.dto';
+import * as moment from 'moment';
 @Injectable()
 export class VentaService {
   constructor(
@@ -189,5 +190,24 @@ async  remove(id: string,user: User): Promise<Venta> {
     log.mensaje = "Deshabilito la venta del vehiculo: " + found.vehiculo.chasis;
     await this.logRepository.save(log);
     return found;
+  }
+  async ventasActuales():Promise<Venta[]>{
+	  const anno: string = new Date().getFullYear().toString();
+    const init: string = "01/01/"+anno;
+    const end: string = "31/12/"+anno; 
+    
+    return result: Venta[] = await this.ventaRepository
+      .createQueryBuilder('venta')
+     
+      .where('venta.fecha >= :start', {
+        start: init + ' 00:00:00',
+      })
+      .andWhere('venta.fecha  <= :end', {
+        end: end + ' 23:59:00',
+      })
+      .getMany();
+
+    
+	  
   }
 }

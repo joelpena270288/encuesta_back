@@ -49,4 +49,10 @@ export class VentaController {
   remove(@Param('id') id: string,@GetUser() user: User) {
     return this.ventaService.remove(id,user);
   }
+  @HasRoles(RoleEnum.ADMIN,RoleEnum.HOSTER,RoleEnum.VENDEDOR)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Get("/Actual")
+  findAllActual() {
+    return this.ventaService.ventasActuales();
+  }
 }
