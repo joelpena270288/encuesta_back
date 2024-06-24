@@ -193,8 +193,8 @@ async  remove(id: string,user: User): Promise<Venta> {
   }
   async ventasActuales():Promise<Venta[]>{
 	  const anno: string = new Date().getFullYear().toString();
-    const init: string = anno+"-01-01"+;
-    const end: string = anno+ "-12-31"+; 
+    const init: string = anno+"-01-01";
+    const end: string = anno+ "-12-31"; 
     
     return  await this.ventaRepository
       .createQueryBuilder('venta')
