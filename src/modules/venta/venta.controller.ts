@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { VentaService } from './venta.service';
 import { CreateVentaDto } from './dto/create-venta.dto';
 import { UpdateVentaDto } from './dto/update-venta.dto';
@@ -15,23 +24,23 @@ export class VentaController {
   @HasRoles(RoleEnum.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Post()
-  create(@Body() createVentaDto: CreateVentaDto,@GetUser() user: User) {
-    return this.ventaService.create(createVentaDto,user);
+  create(@Body() createVentaDto: CreateVentaDto, @GetUser() user: User) {
+    return this.ventaService.create(createVentaDto, user);
   }
-  @HasRoles(RoleEnum.ADMIN,RoleEnum.HOSTER,RoleEnum.VENDEDOR)
+  @HasRoles(RoleEnum.ADMIN, RoleEnum.HOSTER, RoleEnum.VENDEDOR)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Get()
   findAll() {
     return this.ventaService.findAll();
   }
-  @HasRoles(RoleEnum.VENDEDOR,RoleEnum.HOSTER)
+  @HasRoles(RoleEnum.VENDEDOR, RoleEnum.HOSTER)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Get('/ByUser')
   findAllByUser(@GetUser() user: User) {
     return this.ventaService.findAllByUser(user);
   }
 
-  @HasRoles(RoleEnum.ADMIN,RoleEnum.HOSTER,RoleEnum.VENDEDOR)
+  @HasRoles(RoleEnum.ADMIN, RoleEnum.HOSTER, RoleEnum.VENDEDOR)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
@@ -40,18 +49,22 @@ export class VentaController {
   @HasRoles(RoleEnum.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateVentaDto: UpdateVentaDto,@GetUser() user: User) {
-    return this.ventaService.update(id, updateVentaDto,user);
+  update(
+    @Param('id') id: string,
+    @Body() updateVentaDto: UpdateVentaDto,
+    @GetUser() user: User,
+  ) {
+    return this.ventaService.update(id, updateVentaDto, user);
   }
   @HasRoles(RoleEnum.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Delete(':id')
-  remove(@Param('id') id: string,@GetUser() user: User) {
-    return this.ventaService.remove(id,user);
+  remove(@Param('id') id: string, @GetUser() user: User) {
+    return this.ventaService.remove(id, user);
   }
-  @HasRoles(RoleEnum.ADMIN,RoleEnum.HOSTER,RoleEnum.VENDEDOR)
+  @HasRoles(RoleEnum.ADMIN, RoleEnum.HOSTER, RoleEnum.VENDEDOR)
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Get("/Actual")
+  @Get('/Actual')
   findAllActual() {
     return this.ventaService.ventasActuales();
   }
