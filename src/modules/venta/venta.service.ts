@@ -69,7 +69,9 @@ if(!vendedor){
   }
 
 async  findAll(): Promise<Venta[]> {
-    return await this.ventaRepository.find({where: {status: Status.ACTIVO}});
+    return await this.ventaRepository.find({ order: {
+        fecha: 'DESC',
+      },where: {status: Status.ACTIVO}});
   }
   
   
