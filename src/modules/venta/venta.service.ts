@@ -205,6 +205,9 @@ async  remove(id: string,user: User): Promise<Venta> {
       .andWhere('venta.fecha  <= :end', {
         end: end + ' 23:59:00',
       })
+      .andWhere('venta.status  = :estado', {
+        estado: Status.ACTIVO,
+      })
       .getMany();
 
     
