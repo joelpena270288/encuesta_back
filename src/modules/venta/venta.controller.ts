@@ -64,7 +64,7 @@ export class VentaController {
   }
   @HasRoles(RoleEnum.ADMIN, RoleEnum.HOSTER, RoleEnum.VENDEDOR)
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Get('/Actual')
+  @Get('/all/actual')
   findAllActual() {
     return this.ventaService.ventasActuales();
   }
