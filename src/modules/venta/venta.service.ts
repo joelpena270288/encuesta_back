@@ -196,7 +196,7 @@ async  remove(id: string,user: User): Promise<Venta> {
     const init: string = "01/01/"+anno;
     const end: string = "31/12/"+anno; 
     
-    return result: Venta[] = await this.ventaRepository
+    return  await this.ventaRepository
       .createQueryBuilder('venta')
      
       .where('venta.fecha >= :start', {
