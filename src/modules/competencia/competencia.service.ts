@@ -127,6 +127,7 @@ export class CompetenciaService {
           readVendedor.resultadoVentas = indiceVenta;
           readVendedor.color = item.grupo.color;
           readVendedor.grupo = item.grupo.name;
+          readVendedor.cantidadDescuento = descuento;
           readCompetenciaDtoList.vendedores.push(readVendedor);
           
 
