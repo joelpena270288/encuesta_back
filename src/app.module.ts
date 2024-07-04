@@ -22,6 +22,7 @@ import { KpiModule } from './modules/kpi/kpi.module';
 import { MarcaModule } from './modules/marca/marca.module';
 import { ModeloModule } from './modules/modelo/modelo.module';
 import { CompetenciaModule } from './modules/competencia/competencia.module';
+import { ReportVentasModule } from './modules/report-ventas/report-ventas.module';
 
 
 
@@ -52,7 +53,7 @@ import { CompetenciaModule } from './modules/competencia/competencia.module';
     KpiModule, 
     MarcaModule, 
     ModeloModule, 
-    CompetenciaModule  
+    CompetenciaModule, ReportVentasModule  
     ]
 })
 export class AppModule {
