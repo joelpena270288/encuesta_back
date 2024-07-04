@@ -28,6 +28,7 @@ async  create(filtro: FiltroFechaDto) {
     })
     .addGroupBy('venta.id')
     .addGroupBy('vehiculo.id')
+    .addGroupBy('vendedor.id')
     .addGroupBy('grupo.name')
     .addGroupBy('vendedor.name')
     .addOrderBy('venta.fecha','DESC')
