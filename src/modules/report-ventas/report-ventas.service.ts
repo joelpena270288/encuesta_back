@@ -11,7 +11,7 @@ export class ReportVentasService {
     private ventaRepository: Repository<Venta>
    
   ) {}
-  create(filtro: FiltroFechaDto) {
+async  create(filtro: FiltroFechaDto) {
     return await this.ventaRepository
     .createQueryBuilder('venta')
     .innerJoinAndSelect('venta.vendedor', 'vendedor')
@@ -25,9 +25,7 @@ export class ReportVentasService {
     })
     .getMany();
 
-
   }
-
   
   }
 
