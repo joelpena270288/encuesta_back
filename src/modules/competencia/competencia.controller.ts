@@ -4,6 +4,7 @@ import { GenerarCompetencia } from './dto/generar-competencia.dto';
 import { HasRoles } from '../role/roles.decorator';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../role/guards/roles.guard';
+import { RoleEnum } from '../role/enums/role.enum';
 
 
 @Controller('competencia')
