@@ -14,6 +14,7 @@ export class ReportVentasService {
 async  create(filtro: FiltroFechaDto) {
     return await this.ventaRepository
     .createQueryBuilder('venta')
+    .innerJoinAndSelect('venta.vehiculo','vehiculo')
     .innerJoinAndSelect('venta.vendedor', 'vendedor')
     .innerJoinAndSelect('vendedor.grupo', 'grupo')
     
