@@ -54,10 +54,8 @@ export class CompetenciaService {
       })
       .andWhere('venta.status = :estado', {
         estado: Status.ACTIVO,
-      })
+      })     
      
-      .addOrderBy('grupo.name','ASC')
-      .addOrderBy('venta.fecha','DESC')
       .getMany();
 
     findvendedores.forEach((item) => {
