@@ -26,6 +26,7 @@ async  create(filtro: FiltroFechaDto) {
     .andWhere('venta.fecha  <= :end', {
       end: filtro.end + ' 23:59:00',
     })
+    .addGroupBy('venta.id')
     .addGroupBy('grupo.name')
     .addGroupBy('vendedor.name')
     .addOrderBy('venta.fecha','DESC')
