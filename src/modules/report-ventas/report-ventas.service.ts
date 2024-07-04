@@ -27,6 +27,7 @@ async  create(filtro: FiltroFechaDto) {
       end: filtro.end + ' 23:59:00',
     })
     .addGroupBy('venta.id')
+    .addGroupBy('vehiculo.id')
     .addGroupBy('grupo.name')
     .addGroupBy('vendedor.name')
     .addOrderBy('venta.fecha','DESC')
