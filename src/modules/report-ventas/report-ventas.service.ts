@@ -12,7 +12,7 @@ export class ReportVentasService {
    
   ) {}
   create(filtro: FiltroFechaDto) {
-    const findvendedores: Vendedor[] = await this.ventaRepository
+    return await this.ventaRepository
     .createQueryBuilder('venta')
     .innerJoinAndSelect('venta.vendedor', 'vendedor')
     .innerJoinAndSelect('vendedor.grupo', 'grupo')
