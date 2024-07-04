@@ -8,6 +8,7 @@ resultadoDescuento: number;
 cantidadVentas: number;
 resultadoKpi: number;
 cantidadDescuento: number;
+cantidadEncuesta: number;
 grupo: string;
 color: string;
 

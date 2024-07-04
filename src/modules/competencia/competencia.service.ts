@@ -133,6 +133,7 @@ export class CompetenciaService {
           readVendedor.color = item.grupo.color;
           readVendedor.grupo = item.grupo.name;
           readVendedor.cantidadDescuento = descuento;
+          readVendedor.cantidadEncuesta = cantidadCuestionarios;
           readCompetenciaDtoList.vendedores.push(readVendedor);
           
 
