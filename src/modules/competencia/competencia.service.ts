@@ -11,6 +11,7 @@ import { Kpi } from '../kpi/entities/kpi.entity';
 import { GenerarCompetencia } from './dto/generar-competencia.dto';
 import { ReadVendedorCompetencia } from './dto/read-vendedor-competencia.dto';
 import * as moment from 'moment';
+import { Status } from '../../EntityStatus/entity.estatus.enum';
 @Injectable()
 export class CompetenciaService {
   constructor(
@@ -51,6 +52,12 @@ export class CompetenciaService {
       .andWhere('venta.fecha  <= :end', {
         end: generarCompetencia.filtroFecha.end + ' 23:59:00',
       })
+      .andWhere('venta.status = :estado', {
+        estado: Status.ACTIVO,
+      })
+     
+      .addOrderBy('grupo.name','ASC')
+      .addOrderBy('venta.fecha','DESC')
       .getMany();
 
     findvendedores.forEach((item) => {
