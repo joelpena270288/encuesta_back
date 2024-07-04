@@ -12,7 +12,7 @@ export class ReportVentasController {
   @HasRoles(RoleEnum.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Post()
-  create(@Body() flter: FiltroFechaDto) {
+  create(@Body() filter: FiltroFechaDto) {
     return this.reportVentasService.create(filter);
   }
 
