@@ -14,6 +14,7 @@ export class ReportVentasService {
 async  create(filtro: FiltroFechaDto) {
     return await this.ventaRepository
     .createQueryBuilder('venta')
+    
     .innerJoinAndSelect('venta.vehiculo','vehiculo')
     .innerJoinAndSelect('venta.vendedor', 'vendedor')
     .innerJoinAndSelect('vendedor.grupo', 'grupo')
@@ -21,9 +22,13 @@ async  create(filtro: FiltroFechaDto) {
     .where('venta.fecha >= :start', {
       start: filtro.start + ' 00:00:00',
     })
+
     .andWhere('venta.fecha  <= :end', {
       end: filtro.end + ' 23:59:00',
     })
+    .addGroupBy('grupo.name')
+    .addGroupBy('vendedor.name')
+    .addOrderBy('venta.fecha','DESC')
     .getMany();
 
   }
