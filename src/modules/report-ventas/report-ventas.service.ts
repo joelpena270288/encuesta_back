@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { Repository } from 'typeorm';
 import { Venta } from '../venta/entities/venta.entity';
 import { FiltroFechaDto } from '../../filtro-fecha/filtro-fecha.dto';
+import { Status } from '../../EntityStatus/entity.estatus.enum';
 @Injectable()
 export class ReportVentasService {
   constructor(
@@ -26,8 +27,11 @@ async  create(filtro: FiltroFechaDto) {
     .andWhere('venta.fecha  <= :end', {
       end: filtro.end + ' 23:59:00',
     })
+    .andWhere('venta.status = :estado', {
+      estado: Status.ACTIVO,
+    })
    
-    .addOrderBy('grupo.name','DESC')
+    .addOrderBy('grupo.name','ASC')
     .addOrderBy('venta.fecha','DESC')
     .getMany();
 
