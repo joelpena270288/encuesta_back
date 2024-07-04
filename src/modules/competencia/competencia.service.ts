@@ -133,9 +133,9 @@ export class CompetenciaService {
     });
      readCompetenciaDtoList.vendedores.sort((n1,n2)=>{
       if(n1.resultadoKpi>n2.resultadoKpi){
-        return 1;
-      }else if(n1.resultadoKpi < n2.resultadoKpi){
         return -1;
+      }else if(n1.resultadoKpi < n2.resultadoKpi){
+        return 1;
       }else{
         return 0;
       }
