@@ -8,7 +8,7 @@ import { FiltroFechaDto } from '../../filtro-fecha/filtro-fecha.dto';
 export class ReportVentasService {
   constructor(
     @Inject('VENTA_REPOSITORY')
-    private vventaRepository: Repository<Venta>
+    private ventaRepository: Repository<Venta>
    
   ) {}
   create(filtro: FiltroFechaDto) {
