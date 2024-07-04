@@ -128,9 +128,18 @@ export class CompetenciaService {
           readVendedor.color = item.grupo.color;
           readVendedor.grupo = item.grupo.name;
           readCompetenciaDtoList.vendedores.push(readVendedor);
+          
 
     });
-
+     readCompetenciaDtoList.vendedores.sort((n1,n2)=>{
+      if(n1.resultadoKpi>n2.resultadoK){
+        return 1;
+      }else if(n1.resultadoKpi < n2.resultadoKpi){
+        return -1;
+      }else{
+        return 0;
+      }
+     });
     return readCompetenciaDtoList;
   }
 
