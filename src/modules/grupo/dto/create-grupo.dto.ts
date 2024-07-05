@@ -12,7 +12,7 @@ export class CreateGrupoDto {
     @IsNotEmpty() 
     rangosVentas: CreateRangoVentaDto[];
 	 @IsNotEmpty()
-	 idKpi: string;
+	
      color: string;
 	
    

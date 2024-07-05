@@ -28,12 +28,7 @@ export class GrupoService {
     name: createGrupoDto.name.toUpperCase()
 
     }});
-	const foundKpi: Kpi = await this.kpiRepository.findOne({where:{id: createGrupoDto.idKpi,status: Status.ACTIVO }});
-	if(!foundKpi){
-		  throw new NotFoundException('No se encontro el Kpi suministrado');
-		
-	}
-   
+
     const rangosDescuentosList: RangoDescuesto[] = new Array<RangoDescuesto>();
    const rangosEncuestasList: RangoEncuesta[] = new Array<RangoEncuesta>();
    const rangosVentasList: RangoVenta[] = new Array<RangoVenta>();
@@ -89,7 +84,7 @@ export class GrupoService {
       newGrupo.rangoEncuesta = rangosEncuestasList;
       newGrupo.rangoVenta = rangosVentasList;
       newGrupo.color = createGrupoDto.color;
-	  newGrupo.kpi = foundKpi;
+	
       await this.grupoRepository.save(newGrupo);
       const log: Log = new Log();
       log.usuario = user.username;
@@ -116,11 +111,7 @@ export class GrupoService {
     if(!found){
       throw new NotFoundException('No se encontro el grupo suministrado');
     }
-	const foundKpi: Kpi = await this.kpiRepository.findOne({where:{id: updateGrupoDto.idKpi,status: Status.ACTIVO }});
-	if(!foundKpi){
-		  throw new NotFoundException('No se encontro el Kpi suministrado');
-		
-	}
+
     const rangosDescuentosList: RangoDescuesto[] = new Array<RangoDescuesto>();
     const rangosEncuestasList: RangoEncuesta[] = new Array<RangoEncuesta>();
     const rangosVentasList: RangoVenta[] = new Array<RangoVenta>();
@@ -159,7 +150,7 @@ export class GrupoService {
     found.rangoEncuesta = rangosEncuestasList;
     found.rangoVenta = rangosVentasList;
     found.color = updateGrupoDto.color;
-	found.kpi = foundKpi;
+
 
     await this.grupoRepository.save(found);
     const log: Log = new Log();

@@ -36,8 +36,7 @@ export class Grupo {
    
     @OneToMany(() => Vendedor, (vendedor) => vendedor.grupo)
     vendedores: Vendedor[];
-    @ManyToOne(() => Kpi, (kpi) => kpi.grupos,{eager:true})
-    kpi: Kpi;
+   
     @ManyToMany(() => RangoDescuesto, {
       cascade: true,    
       eager: true,

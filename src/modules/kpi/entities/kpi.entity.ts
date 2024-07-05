@@ -28,8 +28,7 @@ export class Kpi {
     indiceDescuesto: number; 
     @Column({ type: 'varchar', default: Status.ACTIVO, length: 10 })
     status: string;
-    @OneToMany(() => Grupo, (grupo) => grupo.kpi)
-    grupos: Grupo[];
+   
     @CreateDateColumn({ type: 'timestamp', name: 'created_at', nullable: true })
     createdAt: Date;
     @CreateDateColumn({ type: 'timestamp', name: 'updated_at', nullable: true })
