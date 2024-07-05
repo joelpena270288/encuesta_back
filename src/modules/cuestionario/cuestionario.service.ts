@@ -53,7 +53,7 @@ for (let index = 0; index < createCuestionarioDto.respuestas.length; index++) {
  
 
  preguntasList.forEach((item)=>{
-if(item.id === respuesta.idpregunta && item.respuesta === respuesta.respuesta){
+if(item.id === respuesta.idpregunta && item.respuesta.toString() === respuesta.respuesta.toString()){
           valor += item.valor;
 }
 

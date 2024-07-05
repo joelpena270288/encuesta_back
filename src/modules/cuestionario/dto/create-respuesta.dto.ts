@@ -1,8 +1,8 @@
-import { IsString, IsInt, IsDate, IsNotEmpty } from 'class-validator';
+import { IsString, IsInt, IsDate, IsNotEmpty, IsBoolean } from 'class-validator';
 export class CreateRespuestaDto {
     @IsNotEmpty()  
     idpregunta: string;
-    @IsNotEmpty()
+    @IsBoolean()
     respuesta: boolean;
 
 
