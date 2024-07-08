@@ -97,7 +97,7 @@ export class CompetenciaService {
         
         rangoEncuesta.forEach((rencuesta)=>{
           const promedio = notaCuestionario/cantidadCuestionarios;
-        if(rencuesta.min<= promedio  &&  rencuesta.max>= promedio){
+        if(rencuesta.min< promedio  &&  rencuesta.max>= promedio){
         indiceNota = rencuesta.valor * foundKpi.indiceEncuesta;
         
         }
