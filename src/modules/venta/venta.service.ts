@@ -27,7 +27,7 @@ export class VentaService {
  async create(createVentaDto: CreateVentaDto,user: User):Promise<Venta> {
    const found: Venta = await this.ventaRepository.findOne({where: {
     vehiculo: {
-      chasis: createVentaDto.chasis
+      chasis: createVentaDto.chasis.toUpperCase()
     },
     status: Status.ACTIVO
    }});
@@ -41,7 +41,7 @@ if(!vendedor){
   const venta: Venta = new Venta();
   const vehiculo: Vehiculo = new Vehiculo();
  
- vehiculo.chasis = createVentaDto.chasis;
+ vehiculo.chasis = createVentaDto.chasis.toUpperCase();
  
  vehiculo.color = createVentaDto.color;
  vehiculo.marca = createVentaDto.marca;
