@@ -67,7 +67,7 @@ if(!found){
     log.mensaje = found.name;
     await this.logRepository.save(log);
 
-    found.name = updateColorDto.name;
+    found.name = updateColorDto.name.toUpperCase();
     return await this.colorRepository.save(found);
   }
 

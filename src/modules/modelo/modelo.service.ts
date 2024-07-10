@@ -51,7 +51,7 @@ async  create(createModeloDto: CreateModeloDto,user: User): Promise<Modelo> {
   await this.logRepository.save(log);
 
   const modelo: Modelo = new Modelo();
-  modelo.name = createModeloDto.name;
+  modelo.name = createModeloDto.name.toUpperCase();
   modelo.marca = founMarca;
   return await this.modeloRepository.save(modelo);
 
@@ -94,7 +94,7 @@ log.accion = 'Editar';
 log.entidad = 'Modelo';
 log.mensaje = updateModeloDto.name;
 await this.logRepository.save(log);
-found.name = updateModeloDto.name;
+found.name = updateModeloDto.name.toUpperCase();
 found.marca = founMarca;
 found.updatedAt = new Date();
 return this.modeloRepository.save(found);
