@@ -23,6 +23,7 @@ import { MarcaModule } from './modules/marca/marca.module';
 import { ModeloModule } from './modules/modelo/modelo.module';
 import { CompetenciaModule } from './modules/competencia/competencia.module';
 import { ReportVentasModule } from './modules/report-ventas/report-ventas.module';
+import { ReporteEncuestaModule } from './modules/reporte-encuesta/reporte-encuesta.module';
 
 
 
@@ -53,7 +54,7 @@ import { ReportVentasModule } from './modules/report-ventas/report-ventas.module
     KpiModule, 
     MarcaModule, 
     ModeloModule, 
-    CompetenciaModule, ReportVentasModule  
+    CompetenciaModule, ReportVentasModule, ReporteEncuestaModule  
     ]
 })
 export class AppModule {
