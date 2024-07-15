@@ -47,6 +47,7 @@ export class ReporteEncuestaService {
     .innerJoinAndSelect('venta.vendedor', 'vendedor')
     .innerJoinAndSelect('vendedor.grupo', 'grupo')
     .leftJoinAndSelect('venta.cuestionarios','cuestionario')
+    .leftJoinAndSelect('cuestionario.encuesta','encuesta')
     
    
     .where('venta.fecha >= :start', {
