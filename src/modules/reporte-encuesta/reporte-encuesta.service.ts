@@ -32,7 +32,7 @@ export class ReporteEncuestaService {
       end: createReporteEncuestaDto.end + ' 23:59:00',
     })
     .andWhere('venta.iduser = :idusario',{
-      idusario: createReporteEncuestaDto.idEncuesta})
+      idusario: createReporteEncuestaDto.idUser})
     .andWhere('venta.status = :estado', {
       estado: Status.ACTIVO,
     })   
@@ -56,7 +56,7 @@ export class ReporteEncuestaService {
       end: createReporteEncuestaDto.end + ' 23:59:00',
     })
     .andWhere('venta.iduser = :idusario',{
-      idusario: createReporteEncuestaDto.idEncuesta})
+      idusario: createReporteEncuestaDto.idUser})
     .andWhere('venta.status = :estado', {
       estado: Status.ACTIVO,
     }) 
