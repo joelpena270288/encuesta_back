@@ -14,6 +14,7 @@ import {
   } from 'typeorm';
   import { Status} from '../../../EntityStatus/entity.estatus.enum';
   import {Marca} from '../../marca/entities/marca.entity';
+  import {Vehiculo} from '../../venta/entities/vehiculo.entity';
   @Entity('modelos')
 export class Modelo {
     @PrimaryGeneratedColumn('uuid')
@@ -26,6 +27,8 @@ export class Modelo {
     marca: Marca;
     @Column({ type: 'boolean', default: false })
     competencia: boolean;
+    @OneToMany(() => Vehiculo, (vehiculo) => vehiculo.modelo)
+    vehiculos: Vehiculo[];
     @CreateDateColumn({ type: 'timestamp', name: 'created_at', nullable: true })
     createdAt: Date;
     @CreateDateColumn({ type: 'timestamp', name: 'updated_at', nullable: true })

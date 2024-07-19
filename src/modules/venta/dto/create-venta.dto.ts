@@ -17,6 +17,8 @@ export class CreateVentaDto {
     marca: string;
     @IsNotEmpty()
     modelo: string;
+    @IsNotEmpty()
+    model: string;
 	
     @IsNotEmpty()
     color: string;

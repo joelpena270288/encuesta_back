@@ -12,6 +12,7 @@ import {
     ManyToOne,
     BeforeInsert,
   } from 'typeorm';
+  import {Modelo} from '../../modelo/entities/modelo.entity';
   @Entity('vehiculos')
 export class Vehiculo {
     @PrimaryGeneratedColumn('uuid')
@@ -22,7 +23,8 @@ export class Vehiculo {
     chasis: string;
     @Column({ type: 'varchar', length: 100, nullable: false })
     modelo: string;
-   
+    @ManyToOne(() => Modelo, (model) => model.vehiculos,{eager: true, nullable: false })
+    model: Modelo;
     @Column({ type: 'varchar', length: 100, nullable: false })
     color: string;
     @CreateDateColumn({ type: 'timestamp', name: 'created_at', nullable: true })

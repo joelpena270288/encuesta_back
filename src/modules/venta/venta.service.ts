@@ -11,6 +11,7 @@ import { Vendedor } from '../vendedor/entities/vendedor.entity';
 import { Encuesta } from '../encuesta/entities/encuesta.entity';
 import { VentaEncuesta } from './dto/venta-encuesta.dto';
 import * as moment from 'moment';
+import { Modelo } from '../modelo/entities/modelo.entity';
 @Injectable()
 export class VentaService {
   constructor(
@@ -21,7 +22,9 @@ export class VentaService {
     @Inject('VENDEDOR_REPOSITORY')
     private vendedorRepository: Repository<Vendedor>,
 	 @Inject('ENCUESTA_REPOSITORY')
-    private encuestaRepository: Repository<Encuesta>
+    private encuestaRepository: Repository<Encuesta>,
+    @Inject('MODELO_REPOSITORY')
+    private modeloRepository: Repository<Modelo>
   
   ) {}
  async create(createVentaDto: CreateVentaDto,user: User):Promise<Venta> {
@@ -38,6 +41,11 @@ export class VentaService {
 if(!vendedor){
   throw new NotFoundException("El vendedor introducido no existe o esta deshabilidado");
 }
+const modelo: Modelo = await this.modeloRepository.findOne({where: {id: createVentaDto.model,status: Status.ACTIVO}});
+if(!modelo){
+  throw new NotFoundException("El modelo introducido no existe o esta deshabilidado");
+
+}
   const venta: Venta = new Venta();
   const vehiculo: Vehiculo = new Vehiculo();
  
@@ -46,6 +54,7 @@ if(!vendedor){
  vehiculo.color = createVentaDto.color;
  vehiculo.marca = createVentaDto.marca;
  vehiculo.modelo = createVentaDto.modelo;
+ vehiculo.model = modelo;
   
 
  venta.correoCliente = createVentaDto.correoCliente;
@@ -152,6 +161,11 @@ VentasList.push(result);
     if(!vendedor){
       throw new NotFoundException("El vendedor introducido no existe o esta deshabilidado");
     }
+    const modelo: Modelo = await this.modeloRepository.findOne({where: {id: updateVentaDto.model,status: Status.ACTIVO}});
+if(!modelo){
+  throw new NotFoundException("El modelo introducido no existe o esta deshabilidado");
+
+}
     const log: Log = new Log();
     log.usuario = user.username;
     log.accion = 'Modificar';
@@ -167,6 +181,7 @@ VentasList.push(result);
     found.telefonoCliente = updateVentaDto.telefonoCliente;
     found.vehiculo.chasis = updateVentaDto.chasis;
     found.vehiculo.modelo = updateVentaDto.modelo;
+    found.vehiculo.model = modelo;
     found.vehiculo.color = updateVentaDto.color;
 	found.precioVenta = updateVentaDto.precioVenta;
     found.precioFinVenta = updateVentaDto.precioFinVenta;

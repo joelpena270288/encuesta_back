@@ -6,10 +6,11 @@ import {VentaProviders} from './venta.providers';
 import {LogProviders} from '../log/log.providers';
 import {VendedorProviders} from '../vendedor/vendedor.providers';
 import {EncuestaProviders} from '../encuesta/encuesta.providers';
+import { ModeloProviders } from '../modelo/modelo.providers';
 @Module({
   imports: [DatabaseModule],
   controllers: [VentaController],
-  providers: [VentaService,...VentaProviders,...LogProviders,...VendedorProviders,...EncuestaProviders],
+  providers: [VentaService,...VentaProviders,...LogProviders,...VendedorProviders,...EncuestaProviders,...ModeloProviders],
   exports:[VentaService]
 })
 export class VentaModule {}
