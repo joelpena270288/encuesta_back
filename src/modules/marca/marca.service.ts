@@ -21,6 +21,7 @@ export class MarcaService {
 if(found){
 
   found.status = Status.ACTIVO;
+  found.competencia = createMarcaDto.competencia;
   found.updatedAt = new Date();
   const log: Log = new Log();
   log.usuario = user.username;
@@ -40,6 +41,7 @@ log.mensaje = createMarcaDto.name;
 await this.logRepository.save(log);
 const marca: Marca = new Marca();
 marca.name = createMarcaDto.name.toUpperCase();
+marca.competencia = createMarcaDto.competencia;
 return await this.marcaRepository.save(marca);
 
   }
@@ -70,6 +72,7 @@ return found;
   log.mensaje = found.name;
   await this.logRepository.save(log);
 found.name = updateMarcaDto.name.toUpperCase();
+found.competencia = updateMarcaDto.competencia;
 found.updatedAt = new Date();
 
   

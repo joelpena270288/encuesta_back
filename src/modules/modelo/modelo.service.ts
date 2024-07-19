@@ -38,6 +38,7 @@ async  create(createModeloDto: CreateModeloDto,user: User): Promise<Modelo> {
 
     found.marca = founMarca;
     found.status = Status.ACTIVO;
+    found.competencia = createModeloDto.competencia;
     found.updatedAt = new Date();
     return await this.modeloRepository.save(found);
 
@@ -53,6 +54,7 @@ async  create(createModeloDto: CreateModeloDto,user: User): Promise<Modelo> {
   const modelo: Modelo = new Modelo();
   modelo.name = createModeloDto.name.toUpperCase();
   modelo.marca = founMarca;
+  modelo.competencia = createModeloDto.competencia;
   return await this.modeloRepository.save(modelo);
 
   }
@@ -96,6 +98,7 @@ log.mensaje = updateModeloDto.name;
 await this.logRepository.save(log);
 found.name = updateModeloDto.name.toUpperCase();
 found.marca = founMarca;
+found.competencia = updateModeloDto.competencia;
 found.updatedAt = new Date();
 return this.modeloRepository.save(found);
   

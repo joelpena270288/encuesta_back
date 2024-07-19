@@ -40,6 +40,9 @@ export class CompetenciaService {
       .leftJoinAndSelect('grupo.rangoEncuesta', 'rangoEncuesta')
       .leftJoinAndSelect('grupo.rangoVenta', 'rangoVenta')
       .leftJoinAndSelect('vendedor.ventas', 'venta')
+      .leftJoinAndSelect('venta.vehiculo', 'vehiculo')
+      .leftJoinAndSelect('vehiculo.modelo', 'modelo','modelo.competencia = :competenciaModelo',{competenciaModelo: true})
+      .leftJoinAndSelect('modelo.marca', 'marca','marca.competencia = :competenciaMarca',{competenciaMarca: true})
       .leftJoinAndSelect('venta.cuestionarios', 'cuestionario')
       .leftJoinAndSelect(
         'cuestionario.encuesta','encuesta',
@@ -60,6 +63,7 @@ export class CompetenciaService {
       })    
      
       .getMany();
+     
 
     findvendedores.forEach((item) => {
       const cantidadVenta = item.ventas.length;

@@ -4,4 +4,5 @@ export class CreateModeloDto {
     name: string;
     @IsNotEmpty() 
     idMarca: string;
+    competencia: boolean;
 }

@@ -24,6 +24,8 @@ export class Modelo {
     status: string;
     @ManyToOne(() => Marca, (marca) => marca.modelos)
     marca: Marca;
+    @Column({ type: 'boolean', default: false })
+    competencia: boolean;
     @CreateDateColumn({ type: 'timestamp', name: 'created_at', nullable: true })
     createdAt: Date;
     @CreateDateColumn({ type: 'timestamp', name: 'updated_at', nullable: true })
