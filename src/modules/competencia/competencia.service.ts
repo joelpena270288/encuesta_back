@@ -36,13 +36,13 @@ export class CompetenciaService {
     const findvendedores: Vendedor[] = await this.vendedorRepository
       .createQueryBuilder('vendedor')
       .innerJoinAndSelect('vendedor.grupo', 'grupo')
-      .leftJoinAndSelect('grupo.rangoDescueto', 'rangoDescueto')
-      .leftJoinAndSelect('grupo.rangoEncuesta', 'rangoEncuesta')
-      .leftJoinAndSelect('grupo.rangoVenta', 'rangoVenta')
-      .leftJoinAndSelect('vendedor.ventas', 'venta')      
-      .leftJoinAndSelect('venta.vehiculo', 'vehiculo')
-      .leftJoinAndSelect('vehiculo.model', 'model','model.competencia = :competenciaModelo',{competenciaModelo: true})
-      .leftJoinAndSelect('model.marca', 'marca','marca.competencia = :competenciaMarca',{competenciaMarca: true})
+      .innerJoinAndSelect('grupo.rangoDescueto', 'rangoDescueto')
+      .innerJoinAndSelect('grupo.rangoEncuesta', 'rangoEncuesta')
+      .innerJoinAndSelect('grupo.rangoVenta', 'rangoVenta')
+      .innerJoinAndSelect('vendedor.ventas', 'venta')      
+      .innerJoinAndSelect('venta.vehiculo', 'vehiculo')
+      .innerJoinAndSelect('vehiculo.model', 'model','model.competencia = :competenciaModelo',{competenciaModelo: true})
+      .innerJoinAndSelect('model.marca', 'marca','marca.competencia = :competenciaMarca',{competenciaMarca: true})
       .leftJoinAndSelect('venta.cuestionarios', 'cuestionario')
       .leftJoinAndSelect(
         'cuestionario.encuesta','encuesta',
