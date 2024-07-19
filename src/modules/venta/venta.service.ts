@@ -154,7 +154,7 @@ VentasList.push(result);
     }
     const log: Log = new Log();
     log.usuario = user.username;
-    log.accion = 'Crear';
+    log.accion = 'Modificar';
     log.entidad = 'Venta';
     log.mensaje = "Modifico la venta del vehiculo: " + found.vehiculo.chasis;
     await this.logRepository.save(log);
@@ -187,7 +187,7 @@ async  remove(id: string,user: User): Promise<Venta> {
     await this.ventaRepository.save(found);
     const log: Log = new Log();
     log.usuario = user.username;
-    log.accion = 'Crear';
+    log.accion = 'Desahabilitar';
     log.entidad = 'Venta';
     log.mensaje = "Deshabilito la venta del vehiculo: " + found.vehiculo.chasis;
     await this.logRepository.save(log);

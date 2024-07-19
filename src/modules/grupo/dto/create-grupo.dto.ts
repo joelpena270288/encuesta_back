@@ -11,9 +11,9 @@ export class CreateGrupoDto {
     rangosEncuestas: CreateRangoEncuestaDto[];
     @IsNotEmpty() 
     rangosVentas: CreateRangoVentaDto[];
-	 @IsNotEmpty()
-	
+	 @IsNotEmpty()	
      color: string;
+     competencia: boolean;
 	
    
 }

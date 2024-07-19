@@ -63,6 +63,7 @@ export class GrupoService {
     if(found){
       found.status = Status.ACTIVO;
       found.updatedAt = new Date();
+      found.competencia = createGrupoDto.competencia;
      
       found.rangoDescueto = rangosDescuentosList;
       found.rangoEncuesta = rangosEncuestasList;
@@ -84,6 +85,7 @@ export class GrupoService {
       newGrupo.rangoEncuesta = rangosEncuestasList;
       newGrupo.rangoVenta = rangosVentasList;
       newGrupo.color = createGrupoDto.color;
+      newGrupo.competencia = createGrupoDto.competencia;
 	
       await this.grupoRepository.save(newGrupo);
       const log: Log = new Log();
@@ -150,6 +152,7 @@ export class GrupoService {
     found.rangoEncuesta = rangosEncuestasList;
     found.rangoVenta = rangosVentasList;
     found.color = updateGrupoDto.color;
+    found.competencia = updateGrupoDto.competencia;
 
 
     await this.grupoRepository.save(found);
