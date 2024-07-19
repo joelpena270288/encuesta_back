@@ -29,6 +29,8 @@ export class Grupo {
     color: string; 
     @Column({ type: 'varchar', default: Status.ACTIVO, length: 10 })
     status: string;
+    @Column({ type: 'boolean', default: false })
+    competencia: boolean;
     @CreateDateColumn({ type: 'timestamp', name: 'created_at', nullable: true })
     createdAt: Date;
     @CreateDateColumn({ type: 'timestamp', name: 'updated_at', nullable: true })

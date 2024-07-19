@@ -54,7 +54,10 @@ export class CompetenciaService {
       })
       .andWhere('venta.status = :estado', {
         estado: Status.ACTIVO,
-      })     
+      }) 
+      .andWhere('grupo.competencia = :competencia',{
+        competencia: true
+      })    
      
       .getMany();
 
