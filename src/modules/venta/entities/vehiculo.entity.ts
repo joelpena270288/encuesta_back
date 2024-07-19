@@ -22,7 +22,7 @@ export class Vehiculo {
     chasis: string;
     @Column({ type: 'varchar', length: 100, nullable: false })
     modelo: string;
-
+   
     @Column({ type: 'varchar', length: 100, nullable: false })
     color: string;
     @CreateDateColumn({ type: 'timestamp', name: 'created_at', nullable: true })
