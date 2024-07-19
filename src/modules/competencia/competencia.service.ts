@@ -39,7 +39,7 @@ export class CompetenciaService {
       .leftJoinAndSelect('grupo.rangoDescueto', 'rangoDescueto')
       .leftJoinAndSelect('grupo.rangoEncuesta', 'rangoEncuesta')
       .leftJoinAndSelect('grupo.rangoVenta', 'rangoVenta')
-      .leftJoinAndSelect('vendedor.ventas', 'venta')      .
+      .leftJoinAndSelect('vendedor.ventas', 'venta')      
       .leftJoinAndSelect('venta.vehiculo', 'vehiculo')
       .leftJoinAndSelect('vehiculo.model', 'model','model.competencia = :competenciaModelo',{competenciaModelo: true})
       .leftJoinAndSelect('model.marca', 'marca','marca.competencia = :competenciaMarca',{competenciaMarca: true})
