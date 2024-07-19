@@ -10,7 +10,5 @@ idEncuesta: string;
 @IsNotEmpty()
 idKpi: string;
 @IsNotEmpty()
-idmarca: string;
-@IsNotEmpty()
 filtroFecha: FiltroFechaDto;
 }
