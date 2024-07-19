@@ -26,7 +26,7 @@ export class ColorService {
         const log: Log = new Log();
         log.usuario = user.username;
         log.accion = 'Activar';
-        log.entidad = 'Grupo';
+        log.entidad = 'Color';
         log.mensaje = found.name;
         await this.logRepository.save(log);
         return found;
@@ -38,7 +38,7 @@ export class ColorService {
         const log: Log = new Log();
         log.usuario = user.username;
         log.accion = 'Nuevo';
-        log.entidad = 'Grupo';
+        log.entidad = 'Color';
         log.mensaje = newColor.name;
         await this.logRepository.save(log);
         return newColor;
@@ -62,8 +62,8 @@ if(!found){
  
     const log: Log = new Log();
     log.usuario = user.username;
-    log.accion = 'Modificado';
-    log.entidad = 'Grupo';
+    log.accion = 'Modificar';
+    log.entidad = 'Color';
     log.mensaje = found.name;
     await this.logRepository.save(log);
 
@@ -80,7 +80,7 @@ found.status = Status.INACTIVO;
  
     const log: Log = new Log();
     log.usuario = user.username;
-    log.accion = 'Eliminado';
+    log.accion = 'Eliminar';
     log.entidad = 'Color';
     log.mensaje = found.name;
     await this.logRepository.save(log);

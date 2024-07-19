@@ -97,7 +97,7 @@ async  remove(id: string, user: User): Promise<Cuestionario> {
     }
     const log: Log = new Log();
 log.usuario = user.username;
-log.accion = 'Crear';
+log.accion = 'Eliminar';
 log.entidad = 'Cuestionario';
 log.mensaje = "Creo Dashabilito la encuesta:" + found.encuesta.name+ "a la venta del vehiculo : " + found.venta.vehiculo.chasis;
 await this.logRepository.save(log);

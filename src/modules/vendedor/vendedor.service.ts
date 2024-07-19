@@ -45,7 +45,7 @@ if(!foundGrupo){
   await this.vendedorRepository.save(newVendedor);
   const log: Log = new Log();
   log.usuario = user.username;
-  log.accion = 'Creo';
+  log.accion = 'Crear';
   log.entidad = 'Vendedor';
   log.mensaje = 'Creo el vendedor: ' +  newVendedor.documento + " " +  newVendedor.name + " " + newVendedor.lastname  + " En el Grupo: " + foundGrupo.name ;
   await this.logRepository.save(log);
