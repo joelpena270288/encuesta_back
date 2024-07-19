@@ -98,7 +98,7 @@ async  findAll(): Promise<Venta[]> {
     .where('venta.status = :status',{status: Status.ACTIVO})
     .getMany();
   
-  
+}
   
   async  findAllByUser(user: User): Promise<VentaEncuesta[]> {    
   
