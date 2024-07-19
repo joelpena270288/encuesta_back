@@ -76,12 +76,27 @@ if(!modelo){
       await this.logRepository.save(log);
    return venta;
   }
+  const modelo: Modelo = await this.modeloRepository
+  .createQueryBuilder('modelo')
+  .innerJoin('modelo.marca','marca')
+  .where('modelo.id = :id',{id: createVentaDto.model
+    
+  })
+  .andWhere('model.status = :status',{status: Status.ACTIVO})
+  .getOne();
+
 
 async  findAll(): Promise<Venta[]> {
-    return await this.ventaRepository.find({ order: {
-        fecha: 'DESC',
-      },where: {status: Status.ACTIVO}});
-  }
+    return await this.ventaRepository
+    .createQueryBuilder('venta')
+    .addOrderBy('venta.fecha','DESC')
+    .innerJoinAndSelect('venta.vehiculo','vehiculo')
+    .innerJoinAndSelect('vehiculo.modelo','modelo')
+    .innerJoinAndSelect('modelo.marca','modelo')
+    .innerJoinAndSelect('venta.vendedor','vendedor')
+    .innerJoinAndSelect('vendedor.grupo','grupo')
+    .where('venta.status = :status',{status: Status.ACTIVO})
+    .getMany();
   
   
   
