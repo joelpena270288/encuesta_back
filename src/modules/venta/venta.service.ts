@@ -76,15 +76,7 @@ if(!modelo){
       await this.logRepository.save(log);
    return venta;
   }
-  const modelo: Modelo = await this.modeloRepository
-  .createQueryBuilder('modelo')
-  .innerJoin('modelo.marca','marca')
-  .where('modelo.id = :id',{id: createVentaDto.model
-    
-  })
-  .andWhere('model.status = :status',{status: Status.ACTIVO})
-  .getOne();
-
+ 
 
 async  findAll(): Promise<Venta[]> {
     return await this.ventaRepository
