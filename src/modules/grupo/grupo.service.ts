@@ -165,8 +165,8 @@ export class GrupoService {
     found.color = updateGrupoDto.color;
     found.competencia = updateGrupoDto.competencia;
 
-   await this.grupoRepository.save(found);
-   
+ const saved =   await this.grupoRepository.save(found);
+   this.grupoRepository.softRemove(saved);
    
     const log: Log = new Log();
     log.usuario = user.username;
