@@ -62,7 +62,7 @@ export class GrupoService {
   }
   for (let index = 0; index < createGrupoDto.rangosVentas.length; index++) {
     const rangoVenta: RangoVenta = new RangoVenta();
-          rangoVenta.id = createGrupoDto.rangosVentas[index].min;
+          rangoVenta.id = createGrupoDto.rangosVentas[index].id;
           rangoVenta.min = createGrupoDto.rangosVentas[index].min;
           rangoVenta.max = createGrupoDto.rangosVentas[index].max;
           rangoVenta.valor = createGrupoDto.rangosVentas[index].valor;
