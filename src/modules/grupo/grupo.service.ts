@@ -157,15 +157,15 @@ export class GrupoService {
     found.competencia = updateGrupoDto.competencia;
 
 
-    await this.grupoRepository.save(found);
-    await this.grupoRepository.softRemove(found);
+   const saved =  await this.grupoRepository.save(found);
+    await this.grupoRepository.softRemove(saved);
     const log: Log = new Log();
     log.usuario = user.username;
     log.accion = 'Editar';
     log.entidad = 'Grupo';
     log.mensaje = found.name;
     await this.logRepository.save(log);
-  return found;
+  return saved;
    
   }
 
