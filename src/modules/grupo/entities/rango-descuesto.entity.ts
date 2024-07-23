@@ -13,6 +13,7 @@ import {
     BeforeInsert,
   } from 'typeorm';
   import {Status} from '../../../EntityStatus/entity.estatus.enum';
+import { Grupo } from './grupo.entity';
   @Entity('rangos_descuentos')
 export class RangoDescuesto {
   @PrimaryGeneratedColumn('uuid')
@@ -25,8 +26,10 @@ export class RangoDescuesto {
     max: number;
     @Column({type: 'decimal', nullable: false,default: 0, precision: 10, scale: 2})
     valor: number;    
-    @Column({ type: 'varchar', default: Status.ACTIVO, length: 10 })
+    @Column({ type: 'varchar', default: Status.ACTIVO, length: 10 })   
     status: string;
+    @ManyToOne(() => Grupo, (grupo) => grupo.rangoDescueto)
+    grupo: Grupo;
     @CreateDateColumn({ type: 'timestamp', name: 'created_at', nullable: true })
     createdAt: Date;
     @CreateDateColumn({ type: 'timestamp', name: 'updated_at', nullable: true })

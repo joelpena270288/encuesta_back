@@ -39,26 +39,26 @@ export class Grupo {
     @OneToMany(() => Vendedor, (vendedor) => vendedor.grupo)
     vendedores: Vendedor[];
    
-    @ManyToMany(() => RangoDescuesto, {
+    @OneToMany(() => RangoDescuesto,(rangoDescueto)=> rangoDescueto.grupo, {
       cascade: true,    
       eager: true,
      
     } )
-    @JoinTable()
+   
     rangoDescueto: RangoDescuesto[];
-    @ManyToMany(() => RangoEncuesta, {
+    @OneToMany(() => RangoEncuesta,(rangoencuesta)=> rangoencuesta.grupo, {
       cascade: true,    
       eager: true,
     
     })
-    @JoinTable()
+   
     rangoEncuesta: RangoEncuesta[];
-    @ManyToMany(() => RangoVenta, {
+    @OneToMany(() => RangoVenta,rangoVenta.grupo, {
       cascade: true,    
       eager: true,
     
     })
-    @JoinTable()
+    
     rangoVenta: RangoVenta[];
 
 }
