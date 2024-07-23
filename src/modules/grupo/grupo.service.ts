@@ -69,8 +69,13 @@ export class GrupoService {
       found.rangoEncuesta = rangosEncuestasList;
       found.rangoVenta = rangosVentasList;
 
-      await this.grupoRepository.save(found);
-      await this.grupoRepository.softRemove(found);
+   const saved =   await this.grupoRepository.save(found);
+      try{
+        await this.grupoRepository.softRemove(saved);
+      }catch(e){
+        console.log(e);
+      }
+      
       const log: Log = new Log();
       log.usuario = user.username;
       log.accion = 'Activar';
