@@ -69,12 +69,8 @@ export class GrupoService {
       found.rangoEncuesta = rangosEncuestasList;
       found.rangoVenta = rangosVentasList;
 
-   const saved =   await this.grupoRepository.save(found);
-      try{
-        await this.grupoRepository.softRemove(saved);
-      }catch(e){
-        console.log(e);
-      }
+    await this.grupoRepository.update(found);
+      
       
       const log: Log = new Log();
       log.usuario = user.username;
@@ -162,12 +158,8 @@ export class GrupoService {
     found.competencia = updateGrupoDto.competencia;
 
 
-   const saved =  await this.grupoRepository.save(found);
-   try{
-    await this.grupoRepository.softRemove(saved);
-   }catch(e){
-    console.log(e);
-   }
+   await this.grupoRepository.update(found);
+   
    
     const log: Log = new Log();
     log.usuario = user.username;
