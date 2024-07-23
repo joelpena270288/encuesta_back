@@ -157,7 +157,6 @@ export class GrupoService {
     found.color = updateGrupoDto.color;
     found.competencia = updateGrupoDto.competencia;
 
-
    await this.grupoRepository.update(found.id,found);
    
    
@@ -167,7 +166,7 @@ export class GrupoService {
     log.entidad = 'Grupo';
     log.mensaje = found.name;
     await this.logRepository.save(log);
-  return saved;
+  return found;
    
   }
 
