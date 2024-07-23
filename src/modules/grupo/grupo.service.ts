@@ -70,6 +70,7 @@ export class GrupoService {
       found.rangoVenta = rangosVentasList;
 
       await this.grupoRepository.save(found);
+      await this.grupoRepository.softRemove(found);
       const log: Log = new Log();
       log.usuario = user.username;
       log.accion = 'Activar';
@@ -88,6 +89,7 @@ export class GrupoService {
       newGrupo.competencia = createGrupoDto.competencia;
 	
       await this.grupoRepository.save(newGrupo);
+      
       const log: Log = new Log();
       log.usuario = user.username;
       log.accion = 'Nuevo';
@@ -156,6 +158,7 @@ export class GrupoService {
 
 
     await this.grupoRepository.save(found);
+    await this.grupoRepository.softRemove(found);
     const log: Log = new Log();
     log.usuario = user.username;
     log.accion = 'Editar';
