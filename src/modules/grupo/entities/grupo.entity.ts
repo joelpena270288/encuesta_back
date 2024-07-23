@@ -53,7 +53,7 @@ export class Grupo {
     })
    
     rangoEncuesta: RangoEncuesta[];
-    @OneToMany(() => RangoVenta,rangoVenta.grupo, {
+    @OneToMany(() => RangoVenta,(rangoVenta)=>rangoVenta.grupo, {
       cascade: true,    
       eager: true,
     
