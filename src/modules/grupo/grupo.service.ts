@@ -166,7 +166,9 @@ export class GrupoService {
     found.competencia = updateGrupoDto.competencia;
 
  const saved =   await this.grupoRepository.save(found);
-   this.grupoRepository.softRemove(saved);
+   this.rangoDescuestoRepository.softRemove(saved);
+   this.rangoEncuestaRepository.softRemove(saved);
+   this.rangoVentaRepository.softRemove(saved);
    
     const log: Log = new Log();
     log.usuario = user.username;
