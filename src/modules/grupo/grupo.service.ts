@@ -77,7 +77,7 @@ export class GrupoService {
       found.rangoEncuesta = rangosEncuestasList;
       found.rangoVenta = rangosVentasList;
 
-    await this.grupoRepository.update(found.id,found);
+    await this.grupoRepository.save(found);
       
       
       const log: Log = new Log();
@@ -165,7 +165,7 @@ export class GrupoService {
     found.color = updateGrupoDto.color;
     found.competencia = updateGrupoDto.competencia;
 
-   await this.grupoRepository.update(found.id,found);
+   await this.grupoRepository.save(found);
    
    
     const log: Log = new Log();
