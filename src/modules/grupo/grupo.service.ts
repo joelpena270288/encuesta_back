@@ -46,7 +46,7 @@ export class GrupoService {
         rangoDescuento.valor = createGrupoDto.rangosDescuestos[index].valor;
         rangoDescuento.name = createGrupoDto.rangosDescuestos[index].name;
        
-        rangosDescuentosList.push(await this.rangoDescuestoRepository.save(rangoDescuento););
+        rangosDescuentosList.push(await this.rangoDescuestoRepository.save(rangoDescuento));
     
   }
   for (let index = 0; index < createGrupoDto.rangosEncuestas.length; index++) {
