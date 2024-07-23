@@ -41,6 +41,7 @@ export class GrupoService {
    const rangosVentasList: RangoVenta[] = new Array<RangoVenta>();
   for (let index = 0; index < createGrupoDto.rangosDescuestos.length; index++) {
     const rangoDescuento: RangoDescuesto = new RangoDescuesto();
+        rangoDescuento.id = createGrupoDto.rangosDescuestos[index].id;
         rangoDescuento.min = createGrupoDto.rangosDescuestos[index].min;
         rangoDescuento.max = createGrupoDto.rangosDescuestos[index].max;
         rangoDescuento.valor = createGrupoDto.rangosDescuestos[index].valor;
@@ -51,6 +52,7 @@ export class GrupoService {
   }
   for (let index = 0; index < createGrupoDto.rangosEncuestas.length; index++) {
     const rangoEncuesta: RangoEncuesta = new RangoEncuesta();
+          rangoEncuesta.id = createGrupoDto.rangosEncuestas[index].id;
           rangoEncuesta.min = createGrupoDto.rangosEncuestas[index].min;
           rangoEncuesta.max = createGrupoDto.rangosEncuestas[index].max;
           rangoEncuesta.valor = createGrupoDto.rangosEncuestas[index].valor;
@@ -60,6 +62,7 @@ export class GrupoService {
   }
   for (let index = 0; index < createGrupoDto.rangosVentas.length; index++) {
     const rangoVenta: RangoVenta = new RangoVenta();
+          rangoVenta.id = createGrupoDto.rangosVentas[index].min;
           rangoVenta.min = createGrupoDto.rangosVentas[index].min;
           rangoVenta.max = createGrupoDto.rangosVentas[index].max;
           rangoVenta.valor = createGrupoDto.rangosVentas[index].valor;
@@ -131,7 +134,8 @@ export class GrupoService {
    
     for (let index = 0; index < updateGrupoDto.rangosDescuestos.length; index++) {
      const rangoDescuento: RangoDescuesto = new RangoDescuesto();
-	     rangoDescuento.name = updateGrupoDto.rangosDescuestos[index].name.toUpperCase();
+         rangoDescuento.id = updateGrupoDto.rangosDescuestos[index].id;
+	       rangoDescuento.name = updateGrupoDto.rangosDescuestos[index].name.toUpperCase();
          rangoDescuento.min = updateGrupoDto.rangosDescuestos[index].min;
          rangoDescuento.max = updateGrupoDto.rangosDescuestos[index].max;
          rangoDescuento.valor = updateGrupoDto.rangosDescuestos[index].valor;
@@ -140,6 +144,7 @@ export class GrupoService {
    }
    for (let index = 0; index < updateGrupoDto.rangosEncuestas.length; index++) {
      const rangoEncuesta: RangoEncuesta = new RangoEncuesta();
+     rangoEncuesta.id = updateGrupoDto.rangosEncuestas[index].id;
 	      rangoEncuesta.name = updateGrupoDto.rangosEncuestas[index].name.toUpperCase();
            rangoEncuesta.min = updateGrupoDto.rangosEncuestas[index].min;
            rangoEncuesta.max = updateGrupoDto.rangosEncuestas[index].max;
@@ -149,7 +154,8 @@ export class GrupoService {
    }
    for (let index = 0; index < updateGrupoDto.rangosVentas.length; index++) {
      const rangoVenta: RangoVenta = new RangoVenta();
-	       rangoVenta.name = updateGrupoDto.rangosVentas[index].name.toUpperCase();
+           rangoVenta.id = updateGrupoDto.rangosVentas[index].id;
+	         rangoVenta.name = updateGrupoDto.rangosVentas[index].name.toUpperCase();
            rangoVenta.min = updateGrupoDto.rangosVentas[index].min;
            rangoVenta.max = updateGrupoDto.rangosVentas[index].max;
            rangoVenta.valor = updateGrupoDto.rangosVentas[index].valor;

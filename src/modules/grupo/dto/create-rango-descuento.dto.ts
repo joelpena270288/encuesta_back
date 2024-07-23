@@ -1,5 +1,6 @@
 import { IsString, IsInt, IsDate, IsNotEmpty } from 'class-validator';
 export class CreateRangoDescuentoDto {
+    id: string;
     @IsNotEmpty() 
     name: string;
     @IsInt()
