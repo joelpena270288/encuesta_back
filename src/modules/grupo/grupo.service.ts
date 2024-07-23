@@ -10,6 +10,7 @@ import { RangoDescuesto } from './entities/rango-descuesto.entity';
 import { RangoEncuesta } from './entities/rango-encuesta.entity';
 import { RangoVenta } from './entities/rango-venta.entity';
 import { Kpi} from '../kpi/entities/kpi.entity';
+import { RangoDescuentoProviders } from './rango-descuesto.providers';
 
 @Injectable()
 export class GrupoService {
@@ -19,7 +20,13 @@ export class GrupoService {
     @Inject('LOG_REPOSITORY')
     private logRepository: Repository<Log>,
 	 @Inject('KPI_REPOSITORY')
-    private kpiRepository: Repository<Kpi>
+    private kpiRepository: Repository<Kpi>,
+    @Inject('RANGODESCUENTO_REPOSITORY')
+    private rangoDescuestoRepository: Repository<RangoDescuesto>,
+    @Inject('RANGOENCUESTA_REPOSITORY')
+    private rangoEncuestaRepository: Repository<RangoEncuesta>,
+    @Inject('RANGOVENTA_REPOSITORY')
+    private rangoVentaRepository: Repository<RangoVenta>
   ) {}
   
  async create(createGrupoDto: CreateGrupoDto,user: User): Promise<Grupo> {
@@ -38,7 +45,8 @@ export class GrupoService {
         rangoDescuento.max = createGrupoDto.rangosDescuestos[index].max;
         rangoDescuento.valor = createGrupoDto.rangosDescuestos[index].valor;
         rangoDescuento.name = createGrupoDto.rangosDescuestos[index].name;
-        rangosDescuentosList.push(rangoDescuento);
+       
+        rangosDescuentosList.push(await this.rangoDescuestoRepository.save(rangoDescuento););
     
   }
   for (let index = 0; index < createGrupoDto.rangosEncuestas.length; index++) {
@@ -47,7 +55,7 @@ export class GrupoService {
           rangoEncuesta.max = createGrupoDto.rangosEncuestas[index].max;
           rangoEncuesta.valor = createGrupoDto.rangosEncuestas[index].valor;
           rangoEncuesta.name = createGrupoDto.rangosEncuestas[index].name;
-        rangosEncuestasList.push(rangoEncuesta);
+        rangosEncuestasList.push(await this.rangoEncuestaRepository.save(rangoEncuesta));
     
   }
   for (let index = 0; index < createGrupoDto.rangosVentas.length; index++) {
@@ -56,7 +64,7 @@ export class GrupoService {
           rangoVenta.max = createGrupoDto.rangosVentas[index].max;
           rangoVenta.valor = createGrupoDto.rangosVentas[index].valor;
           rangoVenta.name = createGrupoDto.rangosVentas[index].name;
-          rangosVentasList.push(rangoVenta); 
+          rangosVentasList.push(await this.rangoDescuestoRepository.save(rangoVenta)); 
     
   }
 
@@ -127,7 +135,7 @@ export class GrupoService {
          rangoDescuento.min = updateGrupoDto.rangosDescuestos[index].min;
          rangoDescuento.max = updateGrupoDto.rangosDescuestos[index].max;
          rangoDescuento.valor = updateGrupoDto.rangosDescuestos[index].valor;
-         rangosDescuentosList.push(rangoDescuento);
+         rangosDescuentosList.push(await this.rangoDescuestoRepository.save(rangoDescuento));
      
    }
    for (let index = 0; index < updateGrupoDto.rangosEncuestas.length; index++) {
@@ -136,7 +144,7 @@ export class GrupoService {
            rangoEncuesta.min = updateGrupoDto.rangosEncuestas[index].min;
            rangoEncuesta.max = updateGrupoDto.rangosEncuestas[index].max;
            rangoEncuesta.valor = updateGrupoDto.rangosEncuestas[index].valor;
-         rangosEncuestasList.push(rangoEncuesta);
+         rangosEncuestasList.push(await this.rangoEncuestaRepository.save(rangoEncuesta));
      
    }
    for (let index = 0; index < updateGrupoDto.rangosVentas.length; index++) {
@@ -145,7 +153,7 @@ export class GrupoService {
            rangoVenta.min = updateGrupoDto.rangosVentas[index].min;
            rangoVenta.max = updateGrupoDto.rangosVentas[index].max;
            rangoVenta.valor = updateGrupoDto.rangosVentas[index].valor;
-           rangosVentasList.push(rangoVenta); 
+           rangosVentasList.push(await this.rangoVentaRepository.save(rangoVenta)); 
      
    }
 
