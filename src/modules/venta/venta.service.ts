@@ -12,6 +12,7 @@ import { Encuesta } from '../encuesta/entities/encuesta.entity';
 import { VentaEncuesta } from './dto/venta-encuesta.dto';
 import * as moment from 'moment';
 import { Modelo } from '../modelo/entities/modelo.entity';
+import { ReassignVentaDto } from './dto/reassign-venta.dto';
 @Injectable()
 export class VentaService {
   constructor(
@@ -24,7 +25,10 @@ export class VentaService {
 	 @Inject('ENCUESTA_REPOSITORY')
     private encuestaRepository: Repository<Encuesta>,
     @Inject('MODELO_REPOSITORY')
-    private modeloRepository: Repository<Modelo>
+    private modeloRepository: Repository<Modelo>,
+    @Inject('USER_REPOSITORY')
+    private userRepository: Repository<User>
+    
   
   ) {}
  async create(createVentaDto: CreateVentaDto,user: User):Promise<Venta> {
@@ -237,4 +241,28 @@ async  remove(id: string,user: User): Promise<Venta> {
     
 	  
   }
+  async reassign(id: string, updateVentaDto: ReassignVentaDto, user: User): Promise<Venta> {
+    const found: Venta = await this.ventaRepository.findOne({where: {id: id}});
+    if(!found){
+     throw new NotFoundException("No Existe la venta introducida");
+    }
+    const userNew: User = await this.userRepository.findOne({where: {id: updateVentaDto.iduser, status: Status.ACTIVO}});
+    if(!userNew){
+      throw new NotFoundException("El Usuario introducido no existe o esta deshabilidado");
+    }
+    const userActual: User = await this.userRepository.findOne({where: {id: found.iduser, status: Status.ACTIVO}});
+   
+   
+    const log: Log = new Log();
+    log.usuario = user.username;
+    log.accion = 'Reasignar';
+    log.entidad = 'Venta';
+    log.mensaje = "Reasigno Venta del:  " + found.vehiculo.chasis +"del Usuario: " + userActual?.username + "al Usruario: " + userNew;
+    await this.logRepository.save(log);
+    found.iduser = updateVentaDto.iduser;    
+    found.updatedAt = new Date();
+    return await this.ventaRepository.save(found);
+
+  }
+
 }

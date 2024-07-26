@@ -17,6 +17,7 @@ import { RolesGuard } from '../role/guards/roles.guard';
 import { GetUser } from '../auth/user.decorator';
 import { User } from '../users/entities/user.entity';
 import { RoleEnum } from '../role/enums/role.enum';
+import { ReassignVentaDto } from './dto/reassign-venta.dto';
 
 @Controller('venta')
 export class VentaController {
@@ -67,5 +68,15 @@ export class VentaController {
   @Get('/all/actual')
   findAllActual() {
     return this.ventaService.ventasActuales();
+  }
+  @HasRoles(RoleEnum.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Patch('/reassign/:id')
+  reassign(
+    @Param('id') id: string,
+    @Body() updateVentaDto:ReassignVentaDto,
+    @GetUser() user: User,
+  ) {
+    return this.ventaService.update(id, updateVentaDto, user);
   }
 }
