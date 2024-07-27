@@ -11,6 +11,9 @@ import { Pregunta } from '../encuesta/entities/pregunta.entity';
 import { Respuesta } from './entities/respuesta.entity';
 import { User } from '../users/entities/user.entity';
 import { Log } from '../log/entities/log.entity';
+import { ParamResultDto } from './dto/params-result.dto';
+import { ReadResultDto } from './dto/read-result.dto';
+import { ResultPreguntaDto } from './dto/result-pregunta.dto';
 
 @Injectable()
 
@@ -102,5 +105,31 @@ log.entidad = 'Cuestionario';
 log.mensaje = "Creo Dashabilito la encuesta:" + found.encuesta.name+ "a la venta del vehiculo : " + found.venta.vehiculo.chasis;
 await this.logRepository.save(log);
   return found;
+  }
+  async findResult(param: ParamResultDto): Promise<ReadResultDto>{
+    const readResultDto: ReadResultDto = new ReadResultDto();
+    readResultDto.result = [];
+    const cuestionario: Cuestionario = await this.cuestionarioRepository
+      .createQueryBuilder('cuestionario')
+      .innerJoinAndSelect('cuestionario.venta', 'venta','venta.id = :idVenta',{idVenta: param.idVenta})
+      .innerJoinAndSelect('cuestionario.encuesta', 'encuesta', 'encuesta.id = :idEncuesta',{idEncuesta: param.idEncuesta})
+      .innerJoinAndSelect('encuesta.preguntas', 'preguntas')      
+      .innerJoinAndSelect('cuestionario.respuestas', 'respuestas')     
+      .getOne();
+
+       cuestionario.encuesta.preguntas.forEach((element)=>{
+      
+        const result: ResultPreguntaDto = new ResultPreguntaDto();
+        result.enunciado = element.text;
+        result.respuestaEsperada = element.respuesta;
+        result.valor = element.valor;
+        result.respuesta = cuestionario.respuestas.find(x=>x.idpregunta === element.id).respuesta;
+         
+         readResultDto.result.push(result);
+
+
+       })
+
+     return readResultDto;
   }
 }

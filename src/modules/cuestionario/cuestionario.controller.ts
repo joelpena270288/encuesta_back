@@ -8,6 +8,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../role/guards/roles.guard';
 import { GetUser } from '../auth/user.decorator';
 import { User } from '../users/entities/user.entity';
+import { ParamResultDto } from './dto/params-result.dto';
 
 @Controller('cuestionario')
 export class CuestionarioController {
@@ -37,5 +38,11 @@ export class CuestionarioController {
   @Delete(':id')
   remove(@Param('id') id: string,@GetUser() user: User) {
     return this.cuestionarioService.remove(id,user);
+  }
+  @HasRoles(RoleEnum.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Post('/result')
+  resultByEncuesta(@Body() param: ParamResultDto) {
+    return this.cuestionarioService.findResult(param);
   }
 }
