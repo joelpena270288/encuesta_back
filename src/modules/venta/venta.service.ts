@@ -340,7 +340,7 @@ export class VentaService {
 
         venta.correoCliente = element.EMAIL_CLIENTE;
         venta.documentoCliente = element.DOCUMENTO_CLIENTE;
-        venta.fecha = element.FECHA_VENTA;
+        venta.fecha = new Date(element.FECHA_VENTA);
 
         venta.nombreCliente = element.NOMBRE_COMPLETO_CLIENTE;
         venta.telefonoCliente = element.TELEFONO_CLIENTE;
