@@ -18,6 +18,7 @@ import { GetUser } from '../auth/user.decorator';
 import { User } from '../users/entities/user.entity';
 import { RoleEnum } from '../role/enums/role.enum';
 import { ReassignVentaDto } from './dto/reassign-venta.dto';
+import { CreateVentaMasivaDto } from './dto/create-venta-masivo.dto';
 
 @Controller('venta')
 export class VentaController {
@@ -28,6 +29,14 @@ export class VentaController {
   create(@Body() createVentaDto: CreateVentaDto, @GetUser() user: User) {
     return this.ventaService.create(createVentaDto, user);
   }
+
+  @HasRoles(RoleEnum.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Post('/masivo')
+  createMasivo(@Body() createVentaDto: CreateVentaMasivaDto[], @GetUser() user: User) {
+    return this.ventaService.createMasivo(createVentaDto, user);
+  }
+
   @HasRoles(RoleEnum.ADMIN, RoleEnum.HOSTER, RoleEnum.VENDEDOR)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Get()
