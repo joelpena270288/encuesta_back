@@ -315,9 +315,17 @@ export class VentaService {
         where: { documento: element.DOCUMENTO_VENDEDOR, status: Status.ACTIVO },
       });
 
-      const modelo: Modelo = await this.modeloRepository.findOne({
-        where: { name: element.MODELO, status: Status.ACTIVO },
-      });
+      const modelo: Modelo = this.modeloRepository
+        .createQueryBuilder('modelo')
+        .innerJoinAndSelect('modelo.marca', 'marca')
+        .where('modelo.name = :nombre', {
+          nombre: element.MODELO,
+        })
+
+        .andWhere('modelo.status  = :estado', {
+          estado: Status.ACTIVO,
+        })
+        .getOne();
 
       if (!found && vendedor && modelo) {
         const venta: Venta = new Venta();
@@ -333,7 +341,7 @@ export class VentaService {
         venta.correoCliente = element.EMAIL_CLIENTE;
         venta.documentoCliente = element.DOCUMENTO_CLIENTE;
         venta.fecha = element.FECHA_VENTA;
-       
+
         venta.nombreCliente = element.NOMBRE_COMPLETO_CLIENTE;
         venta.telefonoCliente = element.TELEFONO_CLIENTE;
         venta.precioVenta = element.PRECIO_REGULAR;
