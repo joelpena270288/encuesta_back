@@ -333,7 +333,7 @@ export class VentaService {
         venta.correoCliente = element.EMAIL_CLIENTE;
         venta.documentoCliente = element.DOCUMENTO_CLIENTE;
         venta.fecha = element.FECHA_VENTA;
-        venta.iduser = user.id;
+       
         venta.nombreCliente = element.NOMBRE_COMPLETO_CLIENTE;
         venta.telefonoCliente = element.TELEFONO_CLIENTE;
         venta.precioVenta = element.PRECIO_REGULAR;
