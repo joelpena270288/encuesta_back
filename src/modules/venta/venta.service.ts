@@ -312,7 +312,7 @@ export class VentaService {
       });
 
       const vendedor: Vendedor = await this.vendedorRepository.findOne({
-        where: { documento: element.DOCUMENTO_CLIENTE, status: Status.ACTIVO },
+        where: { documento: element.DOCUMENTO_VENDEDOR, status: Status.ACTIVO },
       });
 
       const modelo: Modelo = await this.modeloRepository.findOne({
