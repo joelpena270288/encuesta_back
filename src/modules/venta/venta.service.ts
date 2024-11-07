@@ -315,7 +315,7 @@ export class VentaService {
         where: { documento: element.DOCUMENTO_VENDEDOR, status: Status.ACTIVO },
       });
 
-      const modelo: Modelo = this.modeloRepository
+      const modelo: Modelo = await this.modeloRepository
         .createQueryBuilder('modelo')
         .innerJoinAndSelect('modelo.marca', 'marca')
         .where('modelo.name = :nombre', {
