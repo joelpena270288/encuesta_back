@@ -11,7 +11,7 @@ async function bootstrap() {
     .setTitle('Api App')
     .setDescription('This is Api')
     .setVersion('1.0')
-    .addTag('CIGLER')
+    .addTag('Encuesta')
     .build();
 
   const document = SwaggerModule.createDocument(app, options);

@@ -33,7 +33,10 @@ export class VentaController {
   @HasRoles(RoleEnum.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Post('/masivo')
-  createMasivo(@Body() createVentaDto: CreateVentaMasivaDto[], @GetUser() user: User) {
+  createMasivo(
+    @Body() createVentaDto: CreateVentaMasivaDto[],
+    @GetUser() user: User,
+  ) {
     return this.ventaService.createMasivo(createVentaDto, user);
   }
 
@@ -72,18 +75,18 @@ export class VentaController {
   remove(@Param('id') id: string, @GetUser() user: User) {
     return this.ventaService.remove(id, user);
   }
-  @HasRoles(RoleEnum.ADMIN, RoleEnum.HOSTER, RoleEnum.VENDEDOR)
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Get('/all/actual')
-  findAllActual() {
-    return this.ventaService.ventasActuales();
+ // @HasRoles(RoleEnum.ADMIN, RoleEnum.HOSTER, RoleEnum.VENDEDOR)
+ // @UseGuards(JwtAuthGuard, RolesGuard)
+  @Get('/all/actual/:year')
+  findAllActual(@Param('year') year: string) {
+    return this.ventaService.ventasActuales(year);
   }
   @HasRoles(RoleEnum.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Patch('/reassign/:id')
   reassign(
     @Param('id') id: string,
-    @Body() updateVentaDto:ReassignVentaDto,
+    @Body() updateVentaDto: ReassignVentaDto,
     @GetUser() user: User,
   ) {
     return this.ventaService.update(id, updateVentaDto, user);

@@ -237,8 +237,8 @@ export class VentaService {
     await this.logRepository.save(log);
     return found;
   }
-  async ventasActuales(): Promise<Venta[]> {
-    const anno: string = new Date().getFullYear().toString();
+  async ventasActuales(year: string): Promise<Venta[]> {
+    const anno: string =year;
     const init: string = anno + '-01-01';
     const end: string = anno + '-12-31';
 
