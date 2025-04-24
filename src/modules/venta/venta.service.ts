@@ -238,7 +238,7 @@ export class VentaService {
     return found;
   }
   async ventasActuales(year: string): Promise<Venta[]> {
-    const anno: string =year;
+    const anno: string = year;
     const init: string = anno + '-01-01';
     const end: string = anno + '-12-31';
 
@@ -297,7 +297,7 @@ export class VentaService {
   }
 
   async createMasivo(
-    createVentaDto: CreateVentaMasivaDto[],
+    createVentaDto: CreateVentaDto[],
     user: User,
   ): Promise<Venta[]> {
     const ventas: Venta[] = [];
@@ -305,21 +305,21 @@ export class VentaService {
       const found: Venta = await this.ventaRepository.findOne({
         where: {
           vehiculo: {
-            chasis: element.CHASIS.toUpperCase(),
+            chasis: element.chasis.toUpperCase(),
           },
           status: Status.ACTIVO,
         },
       });
 
       const vendedor: Vendedor = await this.vendedorRepository.findOne({
-        where: { documento: element.DOCUMENTO_VENDEDOR, status: Status.ACTIVO },
+        where: { documento: element.idVendedor, status: Status.ACTIVO },
       });
 
       const modelo: Modelo = await this.modeloRepository
         .createQueryBuilder('modelo')
         .innerJoinAndSelect('modelo.marca', 'marca')
         .where('modelo.name = :nombre', {
-          nombre: element.MODELO,
+          nombre: element.modelo,
         })
 
         .andWhere('modelo.status  = :estado', {
@@ -331,21 +331,21 @@ export class VentaService {
         const venta: Venta = new Venta();
         const vehiculo: Vehiculo = new Vehiculo();
 
-        vehiculo.chasis = element.CHASIS.toUpperCase();
+        vehiculo.chasis = element.chasis.toUpperCase();
 
-        vehiculo.color = element.COLOR;
+        vehiculo.color = element.color;
         vehiculo.marca = modelo.marca.name;
-        vehiculo.modelo = element.MODELO;
+        vehiculo.modelo = modelo.name;
         vehiculo.model = modelo;
 
-        venta.correoCliente = element.EMAIL_CLIENTE;
-        venta.documentoCliente = element.DOCUMENTO_CLIENTE;
-        venta.fecha = new Date(element.FECHA_VENTA);
+        venta.correoCliente = element.correoCliente;
+        venta.documentoCliente = element.documentoCliente;
+        venta.fecha = element.fecha;
 
-        venta.nombreCliente = element.NOMBRE_COMPLETO_CLIENTE;
-        venta.telefonoCliente = element.TELEFONO_CLIENTE;
-        venta.precioVenta = element.PRECIO_REGULAR;
-        venta.precioFinVenta = element.PRECIO_VENTA;
+        venta.nombreCliente = element.nombreCliente;
+        venta.telefonoCliente = element.telefonoCliente;
+        venta.precioVenta = element.precioVenta;
+        venta.precioFinVenta = element.precioFinVenta;
         venta.vehiculo = vehiculo;
         venta.vendedor = vendedor;
         ventas.push(await this.ventaRepository.save(venta));

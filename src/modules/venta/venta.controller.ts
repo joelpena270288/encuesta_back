@@ -34,7 +34,7 @@ export class VentaController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Post('/masivo')
   createMasivo(
-    @Body() createVentaDto: CreateVentaMasivaDto[],
+    @Body() createVentaDto: CreateVentaDto[],
     @GetUser() user: User,
   ) {
     return this.ventaService.createMasivo(createVentaDto, user);
